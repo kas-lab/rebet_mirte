@@ -1,0 +1,55 @@
+navigation_launch: 
+  processes:
+    bt_navigator:
+      nodes: [ bt_navigator, bt_navigator_navigate_through_poses, bt_navigator_navigate_to_pose]
+  nodes:
+    controller_server:
+      from: "nav2_controller.controller_server"
+      interfaces:
+        - cmd_vel_nav: pub-> "controller_server::cmd_vel"
+      parameters:
+        - use_sim_time: "controller_server::use_sim_time"
+          value: true
+        - controller_frequency: "controller_server::controller_frequency"
+          value: 20.0
+        - failure_tolerance: "controller_server::failure_tolerance"
+          value: 0.3
+        - general_goal_checker_xy_goal_tolerance: "controller_server::general_goal_checker.xy_goal_tolerance"
+          value: 0.4
+        - general_goal_checker_yaw_goal_tolerance: "controller_server::general_goal_checker.yaw_goal_tolerance"
+          value: 6.2
+        - FollowPath_plugin: "controller_server::FollowPath.plugin"
+          value: "nav2_mppi_controller::MPPIController"
+        - FollowPath_critic: "controller_server::FollowPath.critics"
+          value: ["ConstraintCritic", "CostCritic", "GoalCritic", "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic","PathAngleCritic", "PreferForwardCritic"]
+        - FollowPath_batch_size: "controller_server::FollowPath.batch_size"
+          value: 2000
+        - FollowPath_prune_distance: "controller_server::FollowPath.prune_distance"
+          value: 1.7
+        - FollowPath_transform_tolerance: "controller_server::FollowPath.transform_tolerance"
+          value: 0.1
+        - FollowPath_visualize: "controller_server::FollowPath.visualize"
+          value: true
+        - FollowPath_regenerate_noises: "controller_server::FollowPath.regenerate_noises"
+          value: true
+    smoother_server:
+      from: "nav2_smoother.smoother_server"
+    planner_server:
+      from: "nav2_planner.planner_server"
+    behavior_server:
+      from: "nav2_behaviors.behavior_server"
+    bt_navigator:
+      from: "nav2_bt_navigator.bt_navigator"
+    bt_navigator_navigate_to_pose:
+      from: "nav2_bt_navigator.bt_navigator_navigate_to_pose_rclcpp_node"
+    bt_navigator_navigate_through_poses:
+      from: "nav2_bt_navigator.bt_navigator_navigate_through_poses_rclcpp_node"
+    waypoint_follower:
+      from: "nav2_waypoint_follower.waypoint_follower"
+    velocity_smoother:
+      from: "nav2_velocity_smoother.velocity_smoother"
+      interfaces:
+        - cmd_vel_nav: sub-> "velocity_smoother::cmd_vel"
+        - cmd_vel: pub-> "velocity_smoother::cmd_vel_smoothed"
+    lifecycle_manager_navigation: # what should this be called? executable or node name??
+      from: "nav2_lifecycle_manager.lifecycle_manager_navigation"  

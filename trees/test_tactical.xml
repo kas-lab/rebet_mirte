@@ -1,0 +1,12 @@
+
+<root BTCPP_format="4" main_tree_to_execute="TEST">
+  	<BehaviorTree ID="TEST">
+		<Repeat num_cycles="5">
+				<AdaptOnConditionAny child_status="IDLE" adaptation_type="Tactical">						
+					<Sequence>	
+						<roamTo pose="-8.0;1.7;0;0;0;0;0;" action_name="navigate_to_pose" planner="frog_navigate_to_pose.xml"/>
+					</Sequence>
+				</AdaptOnConditionAny>
+		</Repeat>
+  </BehaviorTree>
+</root>

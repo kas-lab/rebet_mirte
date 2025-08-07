@@ -1,0 +1,52 @@
+define
+
+# Attributes
+feature_name sub attribute,
+    value string;
+
+feature_selected sub attribute,
+    value boolean;
+
+leaf_feature sub attribute,
+    value boolean;
+
+feature_mandatory sub attribute,
+    value boolean;
+
+# Relations
+feature_hierarchy sub relation,
+    relates parent,
+    relates child;
+    
+alternative sub feature_hierarchy;
+or_group sub feature_hierarchy;
+
+cross_tree_constraint sub relation,
+    relates feature,
+    relates dependency;
+
+excludes_constraint sub cross_tree_constraint;
+requires_constraint sub cross_tree_constraint;
+
+# Entities
+Feature sub entity,
+    owns feature_name @key,
+    owns feature_selected,
+    owns feature_mandatory,
+    owns leaf_feature,
+    plays tactic_rule:consequent,
+    plays variant_resolution:variant,
+    plays feature_hierarchy:parent,
+    plays feature_hierarchy:child,
+    plays cross_tree_constraint:feature;
+    
+# Rules
+rule leaf_feature:
+    when {
+        $f isa Feature;
+        not {
+            $fh (parent: $f, child: $f_child) isa feature_hierarchy;
+        };
+    } then {
+        $f has leaf_feature true;
+    };

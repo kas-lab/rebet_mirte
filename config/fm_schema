@@ -98,8 +98,8 @@ resolution_model sub relation,
     relates variant_resolution;
 
 variant_resolution sub relation,
+    owns variant_name @key,
     relates resolution_action,
-    relates variant,
     plays resolution_model:variant_resolution;
 
 resolution_action sub relation,
@@ -108,16 +108,15 @@ resolution_action sub relation,
     plays variant_resolution:resolution_action;
 
 set_nodes_parameters sub resolution_action,
-    relates parameter,
-    relates parameter_value;
+    relates parameter;
     
 set_lifecycle_state sub resolution_action,
     owns lifecycle_state;
 
-at_index sub relation,
-    owns parameter_value_index,
-    relates parameter_array,
-    relates parameter_value;
+parameter sub relation,
+    owns parameter_name,
+    relates parameter_value,
+    plays set_nodes_parameters:parameter;
 
 ### Entities
 Tactic sub entity,
@@ -136,17 +135,10 @@ ROSNode sub entity,
     owns node_name @key,
     plays resolution_action:node;
 
-Parameter sub entity,
-    owns parameter_name,
-    plays set_nodes_parameters:parameter;
-
 ParameterValue sub entity,
     abstract,
-    plays set_nodes_parameters:parameter_value,
-    plays at_index:parameter_value;
-
-ParameterArray sub ParameterValue,
-    plays at_index:parameter_array;
+    owns parameter_value_index,
+    plays parameter:parameter_value;
 
 ParameterBool sub ParameterValue,
     owns bool_value;
@@ -166,19 +158,17 @@ rule tactic_rule_valid:
         $tr has rule_valid true;
     };
 
-rule and_expression_valid:
+rule and_epression_valid:
     when {
         $and_exp (expression: $e) isa and_expression;
-        $e has expression_valid true;
         not {
-            $and_exp (expression: $invalid_e) isa and_expression;
-            $invalid_e has expression_valid false;
+            $e has expression_valid false;  
         };
     } then {
-        $and_exp has expression_valid true;
+        $and_exp has expression_valid true; # will return true when there is no measured values
     };
 
-rule or_expression_valid:
+rule or_epression_valid:
     when {
         $or_exp (expression: $e) isa or_expression;
         $e has expression_valid true;

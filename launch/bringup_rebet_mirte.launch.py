@@ -9,6 +9,7 @@ from launch.substitutions import EnvironmentVariable
 from launch.actions import GroupAction
 from launch_ros.actions import SetParameter
 from launch.actions import TimerAction
+from nav2_common.launch import ReplaceString
 
 
 def generate_launch_description():
@@ -43,7 +44,7 @@ def generate_launch_description():
                          "ros_typedb.launch.py")
         ),
         launch_arguments={
-            "schema_path": f"[{os.path.join(config_files, 'schema_tactics_resolution.tql')}]",
+            "schema_path": f"[{os.path.join(config_files, 'schema_tactics_resolution.tql')},{os.path.join(config_files, 'feature_model.tql')}]",
             "data_path": f"[{os.path.join(config_files, 'insert_measurement.tql')}]",
             "force_database": "True",
             "force_data": "True",
@@ -58,6 +59,17 @@ def generate_launch_description():
                         output="screen",),
                     SetParameter(name='ros2_path', value='not_empty'),             
                 ]
+    )
+
+    xtext_dir = config_files = os.path.join(get_package_share_directory("rebet_mirte"), "xtext")
+
+    config_file = ReplaceString(
+        source_file=config_file,
+        replacements={
+            "<rebet_mirte_xtext_dir>": (
+                xtext_dir
+            )
+        },
     )
 
     adap_engine = Node(
@@ -80,5 +92,6 @@ def generate_launch_description():
     )
 
     return LaunchDescription(
-        [typedb, delay_adap_engine]#, aal, arborist, context_model]
+        [delay_adap_engine]
+        #[typedb, delay_adap_engine, aal, context_model] #, arborist, ]
     )

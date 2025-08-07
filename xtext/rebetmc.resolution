@@ -1,7 +1,9 @@
 name rebetmc;
-import "./rebetmirte.rossystem";
-ros_system nav2;
+import "rebetmirte.rossystem";
+import "partial_nav2.var";
+variability_model partial_nav2;
+ros_system rebet_mirte;
 resolutions 
-LOW_SPEED : SetParameter(velocity_smoother,max_velocity,[0.10,0.0,1.0]) 
-MED_SPEED : SetParameter(velocity_smoother,max_velocity,[0.18,0.0,1.0])
-HI_SPEED : SetParameter(velocity_smoother,max_velocity,[0.26,0.0,1.0])
+LOW_SPEED : select: SetParameter(velocity_smoother,max_velocity,[0.10,0.0,1.0]) deselect:
+MED_SPEED : select: SetParameter(velocity_smoother,max_velocity,[0.18,0.0,1.0]) deselect:
+HI_SPEED : select: SetParameter(velocity_smoother,max_velocity,[0.26,0.0,1.0]) deselect:

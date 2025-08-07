@@ -1,8 +1,39 @@
 /adaptation_engine:
   ros__parameters:
-    tactics_path: "/home/ega/test3.tactics"
-    resolution_path: "/home/ega/rebetmc.resolution"
-    ros_path: ["/home/ega/common_msgs.ros", "/home/ega/lifecycle_msgs.ros"]
-    ros2_path: ["/home/ega/velocity_smoother.ros2",] # "/home/ega/talker.ros2"]
-    rossystem_path: "/home/ega/rebetmirte.rossystem"
-    variability_path: "/home/ega/dummy.var"
+    tactics_path: "<rebet_mirte_xtext_dir>/test3.tactics"
+    resolution_path: "<rebet_mirte_xtext_dir>/rebetmc.resolution"
+    ros_path:
+      - "<rebet_mirte_xtext_dir>/builtin_interfaces.ros"
+      - "<rebet_mirte_xtext_dir>/ros_core.ros"
+      - "<rebet_mirte_xtext_dir>/common_msgs.ros"
+      - "<rebet_mirte_xtext_dir>/lifecycle_msgs.ros"
+      - "<rebet_mirte_xtext_dir>/map_msgs.ros"
+      - "<rebet_mirte_xtext_dir>/nav2_msgs.ros"
+      - "<rebet_mirte_xtext_dir>/tf2_msgs.ros"
+      - "<rebet_mirte_xtext_dir>/nav_2d_msgs.ros"
+      - "<rebet_mirte_xtext_dir>/dwb_msgs.ros"
+      - "<rebet_mirte_xtext_dir>/rosgraph_msgs.ros"
+    ros2_path:
+      - "<rebet_mirte_xtext_dir>/velocity_smoother.ros2"
+      - "<rebet_mirte_xtext_dir>/amcl.ros2"
+      - "<rebet_mirte_xtext_dir>/behavior_server.ros2"
+      - "<rebet_mirte_xtext_dir>/bt_navigator.ros2"
+      - "<rebet_mirte_xtext_dir>/controller_server.ros2"
+      - "<rebet_mirte_xtext_dir>/global_costmap.ros2"
+      - "<rebet_mirte_xtext_dir>/lifecycle_manager_localization.ros2"
+      - "<rebet_mirte_xtext_dir>/lifecycle_manager_navigation.ros2"
+      - "<rebet_mirte_xtext_dir>/local_costmap.ros2"
+      - "<rebet_mirte_xtext_dir>/map_server.ros2"
+      - "<rebet_mirte_xtext_dir>/planner_server.ros2"
+      - "<rebet_mirte_xtext_dir>/rviz2.ros2"
+      - "<rebet_mirte_xtext_dir>/rviz_navigation_dialog_action_client.ros2"
+      - "<rebet_mirte_xtext_dir>/smoother_server.ros2"
+      - "<rebet_mirte_xtext_dir>/waypoint_follower.ros2"
+      - "<rebet_mirte_xtext_dir>/bt_navigator_navigate_to_pose_rclcpp_node.ros2"
+      - "<rebet_mirte_xtext_dir>/bt_navigator_navigate_through_poses_rclcpp_node.ros2"
+
+    rossystem_path:
+      - "<rebet_mirte_xtext_dir>/navigation.rossystem"
+      - "<rebet_mirte_xtext_dir>/localization.rossystem"
+      - "<rebet_mirte_xtext_dir>/rebetmirte.rossystem"
+    variability_path: "<rebet_mirte_xtext_dir>/partial_nav2.var"

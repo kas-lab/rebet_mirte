@@ -1,0 +1,10 @@
+feature_model {
+	name dummy
+	root 
+		mandatory selected Alternative MAX_SPEED { id MAX_SPEED children 
+			{ mandatory selected Feature LOW_SPEED { id LOW_SPEED }, 
+			  mandatory selected Feature MED_SPEED { id MED_SPEED },
+			  mandatory selected Feature HI_SPEED { id HI_SPEED }
+			}
+		} 
+	crossTreeConstraints}

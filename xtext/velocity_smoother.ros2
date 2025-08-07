@@ -1,9 +1,9 @@
 nav2_velocity_smoother:
   artifacts:
     velocity_smoother:
-      node: /velocity_smoother
+      node: velocity_smoother
       publishers:
-        'cmd_vel':
+        'cmd_vel_smoothed':
           type: 'geometry_msgs/msg/Twist'
           qos:
           # profile:
@@ -20,7 +20,7 @@ nav2_velocity_smoother:
             reliability: reliable
             durability: volatile
       subscribers:
-        'cmd_vel_nav':
+        'cmd_vel':
           type: 'geometry_msgs/msg/Twist'
       serviceservers:
         'velocity_smoother/change_state':
