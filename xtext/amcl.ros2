@@ -34,9 +34,9 @@ nav2_amcl:
         "request_nomotion_update":
           type: "std_srvs/srv/Empty"
       parameters:
-        "bond_disable_heartbeat_timeout":
+        "/bond_disable_heartbeat_timeout":
           type: Boolean
-          value: True
+          value: true
         "alpha1":
           type: Double
           value: 0.2
@@ -54,7 +54,7 @@ nav2_amcl:
           value: 0.2
         "always_reset_initial_pose":
           type: Boolean
-          value: False
+          value: false
         "base_frame_id":
           type: String
           value: "base_footprint"
@@ -69,10 +69,10 @@ nav2_amcl:
           value: 0.3
         "do_beamskip":
           type: Boolean
-          value: False
+          value: false
         "first_map_only":
           type: Boolean
-          value: False
+          value: false
         "global_frame_id":
           type: String
           value: "map"
@@ -156,13 +156,13 @@ nav2_amcl:
           value: "scan"
         "set_initial_pose":
           type: Boolean
-          value: False
+          value: false
         "sigma_hit":
           type: Double
           value: 0.2
         "tf_broadcast":
           type: Boolean
-          value: True
+          value: true
         "transform_tolerance":
           type: Double
           value: 1.0
@@ -174,7 +174,7 @@ nav2_amcl:
           value: 0.25
         "use_sim_time":
           type: Boolean
-          value: False
+          value: false
         "z_hit":
           type: Double
           value: 0.5

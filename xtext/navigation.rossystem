@@ -1,7 +1,7 @@
 navigation_launch: 
   processes:
     bt_navigator:
-      nodes: [ bt_navigator, bt_navigator_navigate_through_poses, bt_navigator_navigate_to_pose]
+      nodes: [ bt_navigator, bt_navigator_navigate_through_poses_rclcpp_node, bt_navigator_navigate_to_pose_rclcpp_node]
   nodes:
     controller_server:
       from: "nav2_controller.controller_server"
@@ -18,38 +18,109 @@ navigation_launch:
           value: 0.4
         - general_goal_checker_yaw_goal_tolerance: "controller_server::general_goal_checker.yaw_goal_tolerance"
           value: 6.2
-        - FollowPath_plugin: "controller_server::FollowPath.plugin"
-          value: "nav2_mppi_controller::MPPIController"
-        - FollowPath_critic: "controller_server::FollowPath.critics"
+        - FollowPathMPPI_critics: "controller_server::FollowPathMPPI.critics"
           value: ["ConstraintCritic", "CostCritic", "GoalCritic", "GoalAngleCritic", "PathAlignCritic", "PathFollowCritic","PathAngleCritic", "PreferForwardCritic"]
-        - FollowPath_batch_size: "controller_server::FollowPath.batch_size"
+        - FollowPathMPPI_batch_size: "controller_server::FollowPathMPPI.batch_size"
           value: 2000
-        - FollowPath_prune_distance: "controller_server::FollowPath.prune_distance"
+        - FollowPathDWB_prune_distance: "controller_server::FollowPathDWB.prune_distance"
           value: 1.7
-        - FollowPath_transform_tolerance: "controller_server::FollowPath.transform_tolerance"
+        - FollowPathDWB_transform_tolerance: "controller_server::FollowPathDWB.transform_tolerance"
           value: 0.1
-        - FollowPath_visualize: "controller_server::FollowPath.visualize"
+        - FollowPathMPPI_visualize: "controller_server::FollowPathMPPI.visualize"
           value: true
-        - FollowPath_regenerate_noises: "controller_server::FollowPath.regenerate_noises"
+        - FollowPathMPPI_regenerate_noises: "controller_server::FollowPathMPPI.regenerate_noises"
           value: true
+        - FollowPathMPPI_PathAlignCritic_cost_weight: "controller_server::FollowPathMPPI.PathAlignCritic.cost_weight"
+          value: 14.0
+        - FollowPathDWB_max_vel_x: "controller_server::FollowPathDWB.max_vel_x"
+          value: 0.26
+        - FollowPathDWB_max_vel_theta: "controller_server::FollowPathDWB.max_vel_theta"
+          value: 1.0
+        - FollowPathDWB_max_speed_xy: "controller_server::FollowPathDWB.max_speed_xy"
+          value: 0.26
+        - FollowPathDWB_acc_lim_x: "controller_server::FollowPathDWB.acc_lim_x"
+          value: 2.5
+        - FollowPathDWB_acc_lim_theta: "controller_server::FollowPathDWB.acc_lim_theta"
+          value: 3.2
+        - FollowPathDWB_decel_lim_x: "controller_server::FollowPathDWB.decel_lim_x"
+          value: -2.5
+        - FollowPathDWB_decel_lim_theta: "controller_server::FollowPathDWB.decel_lim_theta"
+          value: -3.2
+        - FollowPathDWB_linear_granularity: "controller_server::FollowPathDWB.linear_granularity"
+          value: 0.05
+        - FollowPathDWB_transform_tolerance: "controller_server::FollowPathDWB.transform_tolerance"
+          value: 0.2  
+        - FollowPathDWB_critics: "controller_server::FollowPathDWB.critics" 
+          value: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+        - FollowPathDWB_BaseObstacle_scale: "controller_server::FollowPathDWB.BaseObstacle.scale"
+          value: 0.02
+        - FollowPathDWB_PathAlign_scale: "controller_server::FollowPathDWB.PathAlign.scale"
+          value: 32.0
+        - FollowPathDWB_PathAlign_forward_point_distance: "controller_server::FollowPathDWB.PathAlign.forward_point_distance"
+          value: 0.1
+        - FollowPathDWB_GoalAlign_scale: "controller_server::FollowPathDWB.GoalAlign.scale"
+          value: 24.0
+        - FollowPathDWB_GoalAlign_forward_point_distance: "controller_server::FollowPathDWB.GoalAlign.forward_point_distance"
+          value: 0.1
+        - FollowPathDWB_PathDist_scale: "controller_server::FollowPathDWB.PathDist.scale"
+          value: 32.0
+        - FollowPathDWB_GoalDist_scale: "controller_server::FollowPathDWB.GoalDist.scale"
+          value: 24.0
+        - FollowPathDWB_RotateToGoal_scale: "controller_server::FollowPathDWB.RotateToGoal.scale"
+          value: 32.0                
     smoother_server:
       from: "nav2_smoother.smoother_server"
+      parameters:
+        - use_sim_time: "smoother_server::use_sim_time"
+          value: true
     planner_server:
       from: "nav2_planner.planner_server"
+      parameters:
+        - use_sim_time: "planner_server::use_sim_time"
+          value: true
+        - planner_plugins: "planner_server::planner_plugins"
+          value: ['GridBased', 'SMAC']
     behavior_server:
       from: "nav2_behaviors.behavior_server"
+      parameters:
+        - use_sim_time: "behavior_server::use_sim_time"
+          value: true
+        - behavior_plugins: "behavior_server::behavior_plugins"
+          value: ['spin', 'backup', 'drive_on_heading', 'assisted_teleop', 'wait']
+        - global_frame: "behavior_server::global_frame"
+          value: 'map'
     bt_navigator:
       from: "nav2_bt_navigator.bt_navigator"
-    bt_navigator_navigate_to_pose:
+      parameters:
+        - use_sim_time: "bt_navigator::use_sim_time"
+          value: true
+        - nav_to_pose_xml: "bt_navigator::default_nav_to_pose_bt_xml"
+          value: "/home/ega/rebetmc_ws/install/mirte_navigation/share/mirte_navigation/trees/navigate_to_pose_w_replanning_and_recovery.xml"          
+        - nav_through_poses_xml: "bt_navigator::default_nav_through_poses_bt_xml"
+          value: "/home/ega/rebetmc_ws/install/mirte_navigation/share/mirte_navigation/trees/navigate_through_poses_w_replanning_and_recovery.xml"
+    bt_navigator_navigate_to_pose_rclcpp_node:
       from: "nav2_bt_navigator.bt_navigator_navigate_to_pose_rclcpp_node"
-    bt_navigator_navigate_through_poses:
+    bt_navigator_navigate_through_poses_rclcpp_node:
       from: "nav2_bt_navigator.bt_navigator_navigate_through_poses_rclcpp_node"
     waypoint_follower:
       from: "nav2_waypoint_follower.waypoint_follower"
+      parameters:
+        - use_sim_time: "waypoint_follower::use_sim_time"
+          value: true
     velocity_smoother:
       from: "nav2_velocity_smoother.velocity_smoother"
       interfaces:
         - cmd_vel_nav: sub-> "velocity_smoother::cmd_vel"
         - cmd_vel: pub-> "velocity_smoother::cmd_vel_smoothed"
+      parameters:
+        - use_sim_time: "velocity_smoother::use_sim_time"
+          value: true
+        - max_velocity: "velocity_smoother::max_velocity"
+          value: [0.5, 0.0, 1.0]
+        - min_velocity: "velocity_smoother::min_velocity"
+          value: [-0.5, 0.0, -1.0]
     lifecycle_manager_navigation: # what should this be called? executable or node name??
-      from: "nav2_lifecycle_manager.lifecycle_manager_navigation"  
+      from: "nav2_lifecycle_manager.lifecycle_manager_navigation"
+      parameters:
+        - use_sim_time: "lifecycle_manager_navigation::use_sim_time"
+          value: true  
