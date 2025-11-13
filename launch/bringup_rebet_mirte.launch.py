@@ -40,19 +40,24 @@ def generate_launch_description():
 
     typedb = IncludeLaunchDescription(
         AnyLaunchDescriptionSource(
-            os.path.join(get_package_share_directory("ros_typedb"), "launch",
-                         "ros_typedb.launch.py")
+            os.path.join(get_package_share_directory("typedb_tactics"), "launch",
+                         "tactical_retreat_kb.launch.py")
         ),
         launch_arguments={
-            "schema_path": f"[{os.path.join(config_files, 'schema_tactics_resolution.tql')},{os.path.join(config_files, 'feature_model.tql')}]",
-            "data_path": f"[{os.path.join(config_files, 'insert_measurement.tql')}]",
+            "schema_path": f"[{os.path.join(config_files, 'data_structure.tql')}, \
+                              {os.path.join(config_files, 'context_model.tql')}, \
+                              {os.path.join(config_files, 'ros_model.tql')}, \
+                              {os.path.join(config_files, 'feature_model.tql')}, \
+                              {os.path.join(config_files, 'tactics_model.tql')}, \
+                              {os.path.join(config_files, 'discover_tactics_model.tql')}]",
+            # "data_path": f"[{os.path.join(config_files, 'insert_measurement.tql')}]",
             "force_database": "True",
             "force_data": "True",
         }.items(),
     )
 
     x = GroupAction(
-                actions = [
+                actions=[
                     Node(
                         package="rebet_java",
                         executable="adaptation_engine",
@@ -92,6 +97,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription(
-        [delay_adap_engine]
+        [typedb, delay_adap_engine]
+        # [typedb, delay_adap_engine, aal, context_model]
         #[typedb, delay_adap_engine, aal, context_model] #, arborist, ]
     )

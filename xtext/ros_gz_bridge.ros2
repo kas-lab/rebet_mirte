@@ -1,0 +1,101 @@
+ros_gz_bridge:
+  artifacts:
+    parameter_bridge:
+      node: ros_gz_bridge
+      publishers:
+        'camera/camera_info':
+          type: 'sensor_msgs/msg/CameraInfo'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+        'camera/image_raw/points':
+          type: 'sensor_msgs/msg/PointCloud2'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+        'clock':
+          type: 'rosgraph_msgs/msg/Clock'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+        'imu':
+          type: 'sensor_msgs/msg/Imu'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+        'joint_states':
+          type: 'sensor_msgs/msg/JointState'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+        'mirte_base_controller/odom':
+          type: 'nav_msgs/msg/Odometry'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+        'point_cloud':
+          type: 'sensor_msgs/msg/PointCloud2'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+        'scan':
+          type: 'sensor_msgs/msg/LaserScan'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+        'tf':
+          type: 'tf2_msgs/msg/TFMessage'
+          qos:
+          # profile:
+          # history: UNKNOWN
+          # depth:
+            reliability: reliable
+            durability: volatile
+      subscribers:
+        'cmd_vel':
+          type: 'geometry_msgs/msg/Twist'
+        'tf':
+          type: 'tf2_msgs/msg/TFMessage'
+      parameters:
+        'config_file':
+          type: String
+          value: "/home/ega/rebetmc_ws/install/mirte_gazebo/share/mirte_gazebo/config/ros_gz_bridge.yaml"
+        'expand_gz_topic_names':
+          type: Boolean
+          value: false
+        'lazy':
+          type: Boolean
+          value: false
+        'override_timestamps_with_wall_time':
+          type: Boolean
+          value: false
+        'subscription_heartbeat':
+          type: Integer
+          value: 1000
+        'use_sim_time':
+          type: Boolean
+          value: false

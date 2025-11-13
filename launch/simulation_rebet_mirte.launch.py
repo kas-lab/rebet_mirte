@@ -43,7 +43,7 @@ def generate_launch_description():
     start = Node(
         package="rebet_mirte",
         executable="tree_action_client.py",
-        arguments=["ROAM"],
+        arguments=["TEST"],
         parameters=[
             {
                 'autostart': False,

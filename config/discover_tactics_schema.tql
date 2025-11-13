@@ -1,0 +1,135 @@
+define
+
+### Discover applicable tactics things and rules
+neighbours sub relation,
+    relates node,
+    relates neighbour;
+
+ROSNode plays neighbours:node;
+ROSNode plays neighbours:neighbour;
+
+connected_nodes sub relation,
+    relates node,
+    relates connected;
+
+ROSNode plays connected_nodes:node;
+ROSNode plays connected_nodes:connected;
+
+applicable_tactics sub relation,
+    relates action,
+    relates resolution_model,
+    relates tactic_rule;
+
+ActionServer plays applicable_tactics:action;
+resolution_model plays applicable_tactics:resolution_model;
+tactic_rule plays applicable_tactics:tactic_rule;
+
+rule neighbours_efferents:
+    when {
+        $afferent_node isa ROSNode, has node_name $node_name, has namespace $namespace;
+        (node: $afferent_node, afferent: $afferent) isa has_interface;
+        $afferent has interface_name $interface_name, has interface_type $interface_type;
+
+        $efferent has interface_name $interface_name, has interface_type $interface_type;
+        (node: $efferent_node, efferent: $efferent) isa has_interface;
+
+        not {
+            $efferent_node has node_name $node_name;
+            $efferent_node has namespace $namespace;
+        };
+    } then {
+        (node: $afferent_node, neighbour: $efferent_node) isa neighbours;
+    };
+
+rule neighbours_afferents:
+    when {
+        $efferent_node isa ROSNode, has node_name $node_name, has namespace $namespace;
+        (node: $efferent_node, efferent: $efferent) isa has_interface;
+        $efferent has interface_name $interface_name, has interface_type $interface_type;
+
+        $afferent has interface_name $interface_name, has interface_type $interface_type;
+        (node: $afferent_node, afferent: $afferent) isa has_interface;
+
+        # Do not consider ServiceClients as neighbours
+        not {
+            $afferent isa ServiceClient;
+        };
+
+        # Do not consider ActionClients as neighbours
+        not {
+            $afferent isa ActionClient;
+        };
+
+        not {
+            $afferent_node has node_name $node_name;
+            $afferent_node has namespace $namespace;
+        };
+    } then {
+        (node: $efferent_node, neighbour: $afferent_node) isa neighbours;
+    };
+
+rule node_subnode_neighbour:
+    when {
+        $node isa ROSNode;
+        (node: $node, subnode: $subnode) isa subnode;
+    } then {
+        (node: $node, neighbour: $subnode) isa neighbours;
+    };
+
+rule subnode_node_neighbour_transitive:
+    when {
+        $node isa ROSNode;
+        (node: $node, subnode: $subnode) isa subnode;
+        (node: $subnode, neighbour: $neighbour) isa neighbours;
+    } then {
+        (node: $node, neighbour: $neighbour) isa neighbours;
+    };
+
+rule connected_reflection:
+    when {
+        $node isa ROSNode;
+    } then {
+        (node: $node, connected: $node) isa connected_nodes;
+    };
+
+rule connected_nodes:
+    when {
+        (node: $node, neighbour: $neighbour) isa neighbours;
+    } then {
+        (node: $node, connected: $neighbour) isa connected_nodes;
+    };
+
+rule connected_nodes_transitive:
+    when {
+        (node: $node, connected: $connected_node) isa connected_nodes;
+        (node: $connected_node, connected: $connected_node_2) isa connected_nodes;
+    } then {
+        (node: $node, connected: $connected_node_2) isa connected_nodes;
+    };
+
+rule applicable_tactics:
+    when {
+        # Find nodes connected to ActionServer's node
+        $action_server isa ActionServer, has interface_name $interface_name, has interface_type $interface_type;
+        (node: $action_server_node, server: $action_server) isa has_action;
+        (node: $action_server_node, connected: $connected_nodes) isa connected_nodes;
+
+        # Find nodes impacted by tactics
+        $resolution_model (tactic: $tactic) isa resolution_model;
+        $tactic_rule (tactic: $tactic, consequent: $consequent) isa tactic_rule;
+        {
+            $consequent isa Feature;
+            (variant: $consequent, resolution_action: $resolution_action) isa variant_resolution;
+        } or {
+            $consequent (expression: $expression) isa and_expression;
+            $expression isa Feature;
+            (variant: $expression, resolution_action: $resolution_action) isa variant_resolution;
+        };
+        $resolution_action (node: $node) isa resolution_action;
+
+        # match the connected nodes with the nodes impacted by a tactic
+        $connected_nodes isa ROSNode, has node_name $node_name, has namespace $namespace;
+        $node has node_name $node_name, has namespace $namespace;
+    } then {
+        (action: $action_server, resolution_model: $resolution_model, tactic_rule: $tactic_rule) isa applicable_tactics;
+    };

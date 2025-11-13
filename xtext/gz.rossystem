@@ -1,0 +1,4 @@
+gz_launch: 
+  nodes:
+    ros_gz_bridge:
+      from: "ros_gz_bridge.ros_gz_bridge"

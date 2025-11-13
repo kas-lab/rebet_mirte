@@ -1,7 +1,23 @@
 name MaxSpeedInternal;
 import "rebetmc.resolution";
-resolution_model rebetmc;
-period[ms] 1000;
-rule MIN { if(nearest_object < "0.1" OR movement_power > "40.0") select_variant(LOW_SPEED)};
-rule MAX { if(nearest_object > "0.15" AND movement_power < "39.0") select_variant(HI_SPEED)};
-rule MED { if(nearest_object > "0.15") select_variant(MED_SPEED)};
+import "test.context";
+rule MIN {
+ condition { 
+  if(movement_power > 40.0) { 
+   action { select_variant(rebetmc.LOW_SPEED)}} 
+   effect {} 
+  };
+rule MED {
+ condition {
+  if(movement_power < 40.0 AND movement_power > 39.0) {
+  	action { select_variant(rebetmc.MED_SPEED)}}
+  	effect {} 
+  };
+rule MAX {
+ condition {
+  if(movement_power < 39.0)
+  { 
+   action { select_variant(rebetmc.HI_SPEED)}} 
+   effect {} 
+  };
+

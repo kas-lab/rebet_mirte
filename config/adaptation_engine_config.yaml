@@ -31,9 +31,13 @@
       - "<rebet_mirte_xtext_dir>/waypoint_follower.ros2"
       - "<rebet_mirte_xtext_dir>/bt_navigator_navigate_to_pose_rclcpp_node.ros2"
       - "<rebet_mirte_xtext_dir>/bt_navigator_navigate_through_poses_rclcpp_node.ros2"
+      - "<rebet_mirte_xtext_dir>/ros_gz_bridge.ros2"
 
     rossystem_path:
       - "<rebet_mirte_xtext_dir>/navigation.rossystem"
       - "<rebet_mirte_xtext_dir>/localization.rossystem"
+      - "<rebet_mirte_xtext_dir>/gz.rossystem"
       - "<rebet_mirte_xtext_dir>/rebetmirte.rossystem"
     variability_path: "<rebet_mirte_xtext_dir>/partial_nav2.var"
+    context_path: "<rebet_mirte_xtext_dir>/test.context"
+    requirements_path: "<rebet_mirte_xtext_dir>/x.reqs"

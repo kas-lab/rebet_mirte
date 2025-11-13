@@ -1,4 +1,5 @@
 #include "rebet/adapt_node.hpp"
+#include "rebet/qr_node.hpp"
 
 #include "rebet/arborist.hpp"
 #include "rebet/json_serialization.hpp"
@@ -25,6 +26,7 @@ public:
   {
     //I suppose here you register all the possible custom nodes, and the determination as to whether they are actually used lies in the xml tree provided.
     factory.registerNodeType<AdaptOnConditionAny>("AdaptOnConditionAny");
+    factory.registerNodeType<RELAXQR>("RelaxQR");
   }
 
   std::optional<BT::NodeStatus> onLoopAfterTick(BT::NodeStatus status) override
@@ -42,7 +44,19 @@ public:
       RCLCPP_INFO(
         node()->get_logger(), "%d seconds have passed, current_status %s", total_elapsed,
         toStr(status).c_str());
+
+      std::vector<RELAXQR *> tsk_qr_nodes = {};
+      tsk_qr_nodes = get_tree_qrs<RELAXQR>();
+      std::vector<std::string> qrs_in_effect = {};
+      for (auto & node : tsk_qr_nodes) {
+        if (node->status() == NodeStatus::RUNNING) {
+          qrs_in_effect.push_back(node->registrationName());
+        }
+      }
+      place_in_all_bbs("QRS_IN_EFFECT", qrs_in_effect);
     }
+
+
 
 
     if (total_elapsed >= time_limit) {

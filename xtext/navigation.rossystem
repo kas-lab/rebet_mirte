@@ -100,8 +100,10 @@ navigation_launch:
           value: "/home/ega/rebetmc_ws/install/mirte_navigation/share/mirte_navigation/trees/navigate_through_poses_w_replanning_and_recovery.xml"
     bt_navigator_navigate_to_pose_rclcpp_node:
       from: "nav2_bt_navigator.bt_navigator_navigate_to_pose_rclcpp_node"
+      parent_node: "nav2_bt_navigator.bt_navigator"
     bt_navigator_navigate_through_poses_rclcpp_node:
       from: "nav2_bt_navigator.bt_navigator_navigate_through_poses_rclcpp_node"
+      parent_node: "nav2_bt_navigator.bt_navigator"
     waypoint_follower:
       from: "nav2_waypoint_follower.waypoint_follower"
       parameters:

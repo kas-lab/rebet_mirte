@@ -1,0 +1,12 @@
+some_pacakge:
+  artifacts:
+    context_model_node: # change to exector name
+      node: context_model_node
+      publishers:
+        nearest_object:
+          type: "std_msgs/msg/Float32"
+        movement_power:
+          type: "std_msgs/msg/Float32"
+        linear_velocity:
+          type: "std_msgs/msg/Float32"
+        
