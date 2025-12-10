@@ -1,0 +1,13 @@
+
+<root BTCPP_format="4" main_tree_to_execute="TACTICALSERVICE">
+  	<BehaviorTree ID="TACTICALSERVICE">
+		<Repeat num_cycles="5">
+				<AdaptOnConditionAny child_status="FAILURE" adaptation_type="Tactical">						
+					<Sequence>	
+						<Sleep msec="2000"/>
+						<NewIDObj measure_taken="{@detect_measure}" pictures_taken="{@rep_pic_take}" service_name="/detect_object_srv" name_of_task="{@current_task}"/>
+					</Sequence>
+				</AdaptOnConditionAny>
+		</Repeat>
+  </BehaviorTree>
+</root>

@@ -1,18 +1,14 @@
 import "rebetmirte.rossystem";
-contextModelNode import 'context_model.ros2';
 ContextVariable current_velocity
 {
-afferent: publisher: ros_gz_bridge.mirte_base_controller_slash_odom
-efferent: linear_velocity
+source: publisher: ref: ros_gz_bridge.mirte_base_controller_slash_odom
 cache? false
 function_name "calc_linear_velocity"
 function_lib "ros_monitors_functions.odom_functions"
 }
 ContextVariable movement_power
 {
-	afferent: publisher: ros_gz_bridge.mirte_base_controller_slash_odom
-	efferent: movement_power
+	source: publisher: ref: ros_gz_bridge.mirte_base_controller_slash_odom
 	cache? false
-	function_name "calc_linear_velocity"
-	function_lib "ros_monitors_functions.odom_functions"
+	function_name ""
 }

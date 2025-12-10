@@ -2,7 +2,7 @@
 <root BTCPP_format="4" main_tree_to_execute="NEWTEST">
   	<BehaviorTree ID="NEWTEST">
 		<Repeat num_cycles="5">
-			<RelaxQR requirement="SHALL( AS CLOSE AS POSSIBLE TO( 0.26 current_velocity ))'">	
+			<RelaxQR name="MoveQuickly" requirement="SHALL( AS CLOSE AS POSSIBLE TO( 0.26 current_velocity ))'">	
 					<AdaptOnConditionAny child_status="IDLE" adaptation_type="Tactical">						
 						<Sequence>	
 							<roamTo pose="-8.0;1.7;0;0;0;0;0;" action_name="navigate_to_pose" planner="frog_navigate_to_pose.xml"/>

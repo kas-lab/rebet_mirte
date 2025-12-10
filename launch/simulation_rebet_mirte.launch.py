@@ -40,20 +40,20 @@ def generate_launch_description():
 
 
 
-    start = Node(
-        package="rebet_mirte",
-        executable="tree_action_client.py",
-        arguments=["TEST"],
-        parameters=[
-            {
-                'autostart': False,
-            }
-        ],
-        prefix=EnvironmentVariable('REBET_TERMINAL_PREFIX'),
-    )
+    # start = Node(
+    #     package="rebet_mirte",
+    #     executable="tree_action_client.py",
+    #     arguments=["TEST"],
+    #     parameters=[
+    #         {
+    #             'autostart': False,
+    #         }
+    #     ],
+    #     prefix=EnvironmentVariable('REBET_TERMINAL_PREFIX'),
+    # )
 
 
 
     return LaunchDescription(
-        [which_world_arg, empty_launch, robocup_launch, arborist, start]
+        [which_world_arg, empty_launch, robocup_launch, arborist]
     )

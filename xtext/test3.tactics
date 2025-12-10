@@ -1,23 +1,9 @@
-name MaxSpeedInternal;
-import "rebetmc.resolution";
-import "test.context";
-rule MIN {
- condition { 
-  if(movement_power > 40.0) { 
-   action { select_variant(rebetmc.LOW_SPEED)}} 
+name FROGMaxSpeedd;
+import "test.resolution";
+import "frog.context";
+rule TEST_RULE {
+ guard { 
+  if(nearest_object < 0.10 OR power_draw > 40.0 OR !selected(rebetmc.CHILD_THREE)) { 
+   action { unselect_variant(rebetmc.CHILD_ONE) AND select_variant(rebetmc.CHILD_TWO)}} 
    effect {} 
   };
-rule MED {
- condition {
-  if(movement_power < 40.0 AND movement_power > 39.0) {
-  	action { select_variant(rebetmc.MED_SPEED)}}
-  	effect {} 
-  };
-rule MAX {
- condition {
-  if(movement_power < 39.0)
-  { 
-   action { select_variant(rebetmc.HI_SPEED)}} 
-   effect {} 
-  };
-

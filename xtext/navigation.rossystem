@@ -109,16 +109,14 @@ navigation_launch:
       parameters:
         - use_sim_time: "waypoint_follower::use_sim_time"
           value: true
-    velocity_smoother:
-      from: "nav2_velocity_smoother.velocity_smoother"
+    "/velocity_smoother":
+      from: "nav2_velocity_smoother./velocity_smoother"
       interfaces:
         - cmd_vel_nav: sub-> "velocity_smoother::cmd_vel"
         - cmd_vel: pub-> "velocity_smoother::cmd_vel_smoothed"
       parameters:
         - use_sim_time: "velocity_smoother::use_sim_time"
           value: true
-        - max_velocity: "velocity_smoother::max_velocity"
-          value: [0.5, 0.0, 1.0]
         - min_velocity: "velocity_smoother::min_velocity"
           value: [-0.5, 0.0, -1.0]
     lifecycle_manager_navigation: # what should this be called? executable or node name??
