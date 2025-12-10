@@ -40,15 +40,15 @@ nav2_lifecycle_manager:
         "~/manage_nodes":
           type: "nav2_msgs/srv/ManageLifecycleNodes"
       parameters:
-        "bond_disable_heartbeat_timeout":
+        "/bond_disable_heartbeat_timeout":
           type: Boolean
-          value: False
+          value: false
         "attempt_respawn_reconnection":
           type: Boolean
-          value: True
+          value: true
         "autostart":
           type: Boolean
-          value: True
+          value: true
         "bond_respawn_max_duration":
           type: Double
           value: 10.0
@@ -60,7 +60,7 @@ nav2_lifecycle_manager:
           value: 1.0
         "node_names":
           type: Array [String]
-          value: "['controller_server', 'smoother_server', 'planner_server', 'behavior_server', 'bt_navigator', 'waypoint_follower', 'velocity_smoother']"
+          value: ['controller_server', 'smoother_server', 'planner_server', 'behavior_server', 'bt_navigator', 'waypoint_follower', 'velocity_smoother']
         "qos_overrides./parameter_events.publisher.depth":
           type: Integer
           value: 1000
@@ -75,4 +75,4 @@ nav2_lifecycle_manager:
           value: "reliable"
         "use_sim_time":
           type: Boolean
-          value: False
+          value: false

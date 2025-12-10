@@ -1,4 +1,5 @@
 #include "rebet/adapt_node.hpp"
+#include "rebet/qr_node.hpp"
 
 #include "rebet/arborist.hpp"
 #include "rebet/json_serialization.hpp"
@@ -7,7 +8,7 @@
 #include "behaviortree_cpp/json_export.h"
 #include "nav_msgs/msg/odometry.hpp"
 #include <nlohmann/json.hpp>
-
+#include "rebet_msgs/msg/measures.hpp"
 
 class MirteArborist : public Arborist
 {
@@ -17,19 +18,38 @@ public:
   int total_elapsed = 0;
   int time_limit = 300;
   bool _publish_feedback = false;
+  rclcpp::Publisher<rebet_msgs::msg::Measures>::SharedPtr publisher_;
 
   MirteArborist(const rclcpp::NodeOptions & options)
-  : Arborist(options) {}
+  : Arborist(options) {
+    publisher_ = node()->create_publisher<rebet_msgs::msg::Measures>(std::string(node()->get_name()) + "/blackboard", 1);
+  }
+
+  bool onGoalReceived(const std::string& /*tree_name*/, const std::string& /*payload*/) override
+  {
+    time_since_last = std::chrono::duration_cast<std::chrono::seconds>(
+    std::chrono::system_clock::now().time_since_epoch()).count();
+    return true;
+  }
 
   void registerNodesIntoFactory(BT::BehaviorTreeFactory & factory) override
   {
     //I suppose here you register all the possible custom nodes, and the determination as to whether they are actually used lies in the xml tree provided.
     factory.registerNodeType<AdaptOnConditionAny>("AdaptOnConditionAny");
+    factory.registerNodeType<RELAXQR>("RelaxQR");
   }
 
   std::optional<BT::NodeStatus> onLoopAfterTick(BT::NodeStatus status) override
   {
     _publish_feedback = false;
+    // if(globalBlackboard()->entryInfo("detect_measure")) //->typeName();
+    // {
+    //   typeid(rebet_msgs::msg::Measure);
+    //   std::cout << "\n something interesting I hope " << globalBlackboard()->entryInfo("detect_measure")->typeName() << "\n" << std::endl;
+    //   bool correct_type = std::type_index(typeid(rebet_msgs::msg::Measure)) == globalBlackboard()->entryInfo("detect_measure")->type();
+    //   std::cout << std::boolalpha << correct_type << std::endl;
+    // }
+    
 
     auto curr_time_pointer = std::chrono::system_clock::now();
 
@@ -39,15 +59,52 @@ public:
     int elapsed_seconds = current_time - time_since_last;
     // Every second I record an entry
     if (elapsed_seconds >= 1) {
+      rebet_msgs::msg::Measures measures_msg;
+      total_elapsed += elapsed_seconds;
       RCLCPP_INFO(
         node()->get_logger(), "%d seconds have passed, current_status %s", total_elapsed,
         toStr(status).c_str());
+      
+      _publish_feedback = true;
+      for(const auto& entry : globalBlackboard()->getKeys())
+      {
+        std::string key = std::string(entry);
+        if(std::type_index(typeid(rebet_msgs::msg::Measure)) == globalBlackboard()->entryInfo(key)->type())
+        {
+          rebet_msgs::msg::Measure measure;
+          if(globalBlackboard()->get<rebet_msgs::msg::Measure>(key,measure))
+          {
+            measures_msg.measures.push_back(measure);
+          }
+        }
+      }
+
+      if(!measures_msg.measures.empty()) {
+        publisher_->publish(measures_msg); 
+      }
+
+      std::vector<RELAXQR *> tsk_qr_nodes = {};
+      tsk_qr_nodes = get_tree_qrs<RELAXQR>();
+      std::vector<std::string> qrs_in_effect = {};
+      for (auto & nnode : tsk_qr_nodes) {
+        if (nnode->status() == NodeStatus::RUNNING) {
+          RCLCPP_INFO(
+        node()->get_logger(), "rego name %s",
+        nnode->name().c_str());
+          qrs_in_effect.push_back(nnode->name());
+        }
+      }
+      place_in_all_bbs("QRS_IN_EFFECT", qrs_in_effect);
     }
+
+
 
 
     if (total_elapsed >= time_limit) {
       return BT::NodeStatus::SUCCESS;
     }
+
+    time_since_last = current_time;
 
     return std::nullopt;
   }

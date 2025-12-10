@@ -1,0 +1,10 @@
+name rebetmc;
+import "rebetmirte.rossystem";
+import "partial_nav2.var";
+import "test.var";
+variability_model test;
+ros_system rebet_mirte;
+resolutions 
+CHILD_ONE: select: deselect:
+CHILD_TWO: select: deselect:
+CHILD_THREE: select: deselect:

@@ -26,21 +26,21 @@ nav2_waypoint_follower:
         "follow_waypoints":
           type: "nav2_msgs/action/FollowWaypoints"
       parameters:
-        "bond_disable_heartbeat_timeout":
+        "/bond_disable_heartbeat_timeout":
           type: Boolean
-          value: True
+          value: true
         "loop_rate":
           type: Integer
-          value: 200
+          value: 20
         "stop_on_failure":
           type: Boolean
-          value: False
+          value: false
         "use_sim_time":
           type: Boolean
-          value: False
+          value: false
         "wait_at_waypoint.enabled":
           type: Boolean
-          value: True
+          value: true
         "wait_at_waypoint.plugin":
           type: String
           value: "nav2_waypoint_follower::WaitAtWaypoint"

@@ -2,3 +2,5 @@ rebet_mirte:
   subSystems:
     localization_launch
     navigation_launch
+    gz_launch
+    yolo_launch

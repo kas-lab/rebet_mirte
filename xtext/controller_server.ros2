@@ -44,406 +44,397 @@ nav2_controller:
         "follow_path":
           type: "nav2_msgs/action/FollowPath"
       parameters:
-        "bond_disable_heartbeat_timeout":
+        "/bond_disable_heartbeat_timeout":
           type: Boolean
-          value: True
-        "FollowPath.BaseObstacle.class":
+          value: true
+        "FollowPathDWB.BaseObstacle.class":
           type: String
           value: "BaseObstacle"
-        "FollowPath.BaseObstacle.scale":
-          type: Double
-          value: 0.02
-        "FollowPath.BaseObstacle.sum_scores":
-          type: Boolean
-          value: False
-        "FollowPath.GoalAlign.aggregation_type":
-          type: String
-          value: "last"
-        "FollowPath.GoalAlign.class":
-          type: String
-          value: "GoalAlign"
-        "FollowPath.GoalAlign.forward_point_distance":
-          type: Double
-          value: 0.1
-        "FollowPath.GoalAlign.scale":
-          type: Double
-          value: 24.0
-        "FollowPath.GoalDist.aggregation_type":
-          type: String
-          value: "last"
-        "FollowPath.GoalDist.class":
-          type: String
-          value: "GoalDist"
-        "FollowPath.GoalDist.scale":
-          type: Double
-          value: 24.0
-        "FollowPath.Oscillation.class":
-          type: String
-          value: "Oscillation"
-        "FollowPath.Oscillation.oscillation_reset_angle":
-          type: Double
-          value: 0.2
-        "FollowPath.Oscillation.oscillation_reset_dist":
-          type: Double
-          value: 0.05
-        "FollowPath.Oscillation.oscillation_reset_time":
-          type: Double
-          value: -1.0
-        "FollowPath.Oscillation.scale":
+        "FollowPathDWB.BaseObstacle.scale":
           type: Double
           value: 1.0
-        "FollowPath.Oscillation.x_only_threshold":
-          type: Double
-          value: 0.05
-        "FollowPath.PathAlign.aggregation_type":
-          type: String
-          value: "last"
-        "FollowPath.PathAlign.class":
-          type: String
-          value: "PathAlign"
-        "FollowPath.PathAlign.forward_point_distance":
-          type: Double
-          value: 0.1
-        "FollowPath.PathAlign.scale":
-          type: Double
-          value: 32.0
-        "FollowPath.PathDist.aggregation_type":
-          type: String
-          value: "last"
-        "FollowPath.PathDist.class":
-          type: String
-          value: "PathDist"
-        "FollowPath.PathDist.scale":
-          type: Double
-          value: 32.0
-        "FollowPath.RotateToGoal.class":
-          type: String
-          value: "RotateToGoal"
-        "FollowPath.RotateToGoal.lookahead_time":
-          type: Double
-          value: -1.0
-        "FollowPath.RotateToGoal.scale":
-          type: Double
-          value: 32.0
-        "FollowPath.RotateToGoal.slowing_factor":
-          type: Double
-          value: 5.0
-        "FollowPath.acc_lim_theta":
-          type: Double
-          value: 3.2
-        "FollowPath.acc_lim_x":
-          type: Double
-          value: 2.5
-        "FollowPath.acc_lim_y":
-          type: Double
-          value: 0.0
-        "FollowPath.angular_granularity":
-          type: Double
-          value: 0.025
-        "FollowPath.critics":
-          type: Array [String]
-          value: "['RotateToGoal', 'Oscillation', 'BaseObstacle', 'GoalAlign', 'PathAlign', 'PathDist', 'GoalDist']"
-        "FollowPath.ConstraintCritic.enabled":
-          type: Boolean
-          value: true
-        "FollowPath.ConstraintCritic.cost_power":
-          type: Integer
-          value: 1
-        "FollowPath.ConstraintCritic.cost_weight":
-          type: Double
-          value: 4.0
-        "FollowPath.GoalCritic.enabled":
-          type: Boolean
-          value: true
-        "FollowPath.GoalCritic.cost_power":
-          type: Integer
-          value: 1
-        "FollowPath.GoalCritic.cost_weight":
-          type: Double
-          value: 5.0
-        "FollowPath.GoalCritic.threshold_to_consider":
-          type: Double
-          value: 1.4 
-        "FollowPath.GoalAngleCritic.enabled":
-          type: Boolean
-          value: true
-        "FollowPath.GoalAngleCritic.cost_power":
-          type: Integer
-          value: 1
-        "FollowPath.GoalAngleCritic.cost_weight":
-          type: Double
-          value: 3.0
-        "FollowPath.GoalAngleCritic.threshold_to_consider":
-          type: Double
-          value: 0.5     
-        "FollowPath.PreferForwardCritic.enabled":
-          type: Boolean
-          value: true
-        "FollowPath.PreferForwardCritic.cost_power":
-          type: Integer
-          value: 1
-        "FollowPath.PreferForwardCritic.cost_weight":
-          type: Double
-          value: 5.0
-        "FollowPath.PreferForwardCritic.threshold_to_consider":
-          type: Double
-          value: 0.5           
-        "FollowPath.CostCritic.enabled":
-          type: Boolean
-          value: true
-        "FollowPath.CostCritic.cost_power":
-          type: Integer
-          value: 1
-        "FollowPath.CostCritic.cost_weight":
-          type: Double
-          value: 3.81
-        "FollowPath.CostCritic.critical_cost":
-          type: Double
-          value: 300.0
-        "FollowPath.CostCritic.consider_footprint":
-          type: Boolean
-          value: true     
-        "FollowPath.CostCritic.collision_cost":
-          type: Double
-          value: 1000000.0     
-        "FollowPath.CostCritic.near_goal_distance":
-          type: Double
-          value: 1.0    
-        "FollowPath.CostCritic.trajectory_point_step":
-          type: Integer
-          value: 2                                        
-        "FollowPath.PathAlignCritic.enabled":
-          type: Boolean
-          value: true
-        "FollowPath.PathAlignCritic.cost_power":
-          type: Integer
-          value: 1
-        "FollowPath.PathAlignCritic.cost_weight":
-          type: Double
-          value: 10.0
-        "FollowPath.PathAlignCritic.threshold_to_consider":
-          type: Double
-          value: 0.5
-        "FollowPath.PathAlignCritic.max_path_occupancy_ratio":
-          type: Double
-          value: 0.05    
-        "FollowPath.PathAlignCritic.trajectory_point_step":
-          type: Integer
-          value: 4
-        "FollowPath.PathAlignCritic.offset_from_furthest":
-          type: Integer
-          value: 20        
-        "FollowPath.PathAlignCritic.use_path_orientations":
-          type: Boolean
-          value: false    
-        "FollowPath.PathFollowCritic.enabled":
-          type: Boolean
-          value: true
-        "FollowPath.PathFollowCritic.cost_power":
-          type: Integer
-          value: 1
-        "FollowPath.PathFollowCritic.cost_weight":
-          type: Double
-          value: 5.0
-        "FollowPath.PathFollowCritic.threshold_to_consider":
-          type: Double
-          value: 0.5
-        "FollowPath.PathAlignCritic.offset_from_furthest":
-          type: Integer
-          value: 5          
-        "FollowPath.PathAngleCritic.enabled":
-          type: Boolean
-          value: true
-        "FollowPath.PathAngleCritic.cost_power":
-          type: Integer
-          value: 1
-        "FollowPath.PathAngleCritic.cost_weight":
-          type: Double
-          value: 2.0
-        "FollowPath.PathAngleCritic.threshold_to_consider":
-          type: Double
-          value: 0.5   
-        "FollowPath.PathAngleCritic.max_angle_to_furthest":
-          type: Double
-          value: 1.0
-        "FollowPath.PathAngleCritic.mode":
-          type: Integer
-          value: 0          
-        "FollowPath.debug_trajectory_details":
-          type: Boolean
-          value: True
-        "FollowPath.decel_lim_theta":
-          type: Double
-          value: -3.2
-        "FollowPath.decel_lim_x":
-          type: Double
-          value: -2.5
-        "FollowPath.decel_lim_y":
-          type: Double
-          value: 0.0
-        "FollowPath.default_critic_namespaces":
-          type: Array [String]
-          value: "[]"
-        "FollowPath.discretize_by_time":
-          type: Boolean
-          value: False
-        "FollowPath.forward_prune_distance":
-          type: Double
-          value: 2.0
-        "FollowPath.include_last_point":
-          type: Boolean
-          value: True
-        "FollowPath.linear_granularity":
-          type: Double
-          value: 0.05
-        "FollowPath.marker_lifetime":
-          type: Double
-          value: 0.1
-        "FollowPath.max_speed_xy":
-          type: Double
-          value: 0.22
-        "FollowPath.max_vel_theta":
-          type: Double
-          value: 1.0
-        "FollowPath.max_vel_x":
-          type: Double
-          value: 0.22
-        "FollowPath.max_vel_y":
-          type: Double
-          value: 0.0
-        "FollowPath.min_speed_theta":
-          type: Double
-          value: 0.0
-        "FollowPath.min_speed_xy":
-          type: Double
-          value: 0.0
-        "FollowPath.min_vel_x":
-          type: Double
-          value: 0.0
-        "FollowPath.min_vel_y":
-          type: Double
-          value: 0.0
-        "FollowPath.plugin":
-          type: String
-          value: "dwb_core::DWBLocalPlanner"
-        "FollowPath.prune_distance":
-          type: Double
-          value: 2.0
-        "FollowPath.prune_plan":
-          type: Boolean
-          value: True
-        "FollowPath.publish_cost_grid_pc":
-          type: Boolean
-          value: False
-        "FollowPath.publish_evaluation":
-          type: Boolean
-          value: True
-        "FollowPath.publish_global_plan":
-          type: Boolean
-          value: True
-        "FollowPath.publish_local_plan":
-          type: Boolean
-          value: True
-        "FollowPath.publish_trajectories":
-          type: Boolean
-          value: True
-        "FollowPath.publish_transformed_plan":
-          type: Boolean
-          value: True
-        "FollowPath.short_circuit_trajectory_evaluation":
-          type: Boolean
-          value: True
-        "FollowPath.shorten_transformed_plan":
-          type: Boolean
-          value: True
-        "FollowPath.sim_time":
-          type: Double
-          value: 2.0
-        "FollowPath.time_granularity":
-          type: Double
-          value: 0.5
-        "FollowPath.trajectory_generator_name":
-          type: String
-          value: "dwb_plugins::StandardTrajectoryGenerator"
-        "FollowPath.trans_stopped_velocity":
-          type: Double
-          value: 0.25
-        "FollowPath.transform_tolerance":
-          type: Double
-          value: 0.2
-        "FollowPath.vtheta_samples":
-          type: Integer
-          value: 40
-        "FollowPath.vx_samples":
-          type: Integer
-          value: 20
-        "FollowPath.vy_samples":
-          type: Integer
-          value: 0
-        "FollowPath.xy_goal_tolerance":
-          type: Double
-          value: 0.05
-        "FollowPath.motion_model":
-          type: String
-          value: "DiffDrive"
-        "FollowPath.critics":
-          type: Array [String]
-          value: "[]"
-        "FollowPath.iteration_count":
-          type: Integer
-          value: 1
-        "FollowPath.batch_size":
-          type: Integer
-          value: 1000
-        "FollowPath.time_steps":
-          type: Integer
-          value: 56
-        "FollowPath.model_dt":
-          type: Double
-          value: 0.05  
-        "FollowPath.vx_std":
-          type: Double
-          value: 0.2
-        "FollowPath.vy_std":
-          type: Double
-          value: 0.2
-        "FollowPath.wz_std":
-          type: Double
-          value: 0.4
-        "FollowPath.vx_max":
-          type: Double
-          value: 0.5
-        "FollowPath.vy_max":
-          type: Double
-          value: 0.5
-        "FollowPath.vx_min":
-          type: Double
-          value: -0.35
-        "FollowPath.wz_max":
-          type: Double
-          value: 1.9
-        "FollowPath.temperature":
-          type: Double
-          value: 0.3
-        "FollowPath.gamma":
-          type: Double
-          value: 0.015
-        "FollowPath.visualize":
+        "FollowPathDWB.BaseObstacle.sum_scores":
           type: Boolean
           value: false
-        "FollowPath.retry_attempt_limit":
-          type: Integer
-          value: 1
-        "FollowPath.reset_period":
+        "FollowPathDWB.GoalAlign.aggregation_type":
+          type: String
+          value: "last"
+        "FollowPathDWB.GoalAlign.class":
+          type: String
+          value: "GoalAlign"
+        "FollowPathDWB.GoalAlign.forward_point_distance":
+          type: Double
+          value: 0.325
+        "FollowPathDWB.GoalAlign.scale":
           type: Double
           value: 1.0
-        "FollowPath.regenerate_noises":
+        "FollowPathDWB.GoalDist.aggregation_type":
+          type: String
+          value: "last"
+        "FollowPathDWB.GoalDist.class":
+          type: String
+          value: "GoalDist"
+        "FollowPathDWB.GoalDist.scale":
+          type: Double
+          value: 1.0
+        "FollowPathDWB.Oscillation.class":
+          type: String
+          value: "Oscillation"
+        "FollowPathDWB.Oscillation.oscillation_reset_angle":
+          type: Double
+          value: 0.2
+        "FollowPathDWB.Oscillation.oscillation_reset_dist":
+          type: Double
+          value: 0.05
+        "FollowPathDWB.Oscillation.oscillation_reset_time":
+          type: Double
+          value: -1.0
+        "FollowPathDWB.Oscillation.scale":
+          type: Double
+          value: 1.0
+        "FollowPathDWB.Oscillation.x_only_threshold":
+          type: Double
+          value: 0.05
+        "FollowPathDWB.PathAlign.aggregation_type":
+          type: String
+          value: "last"
+        "FollowPathDWB.PathAlign.class":
+          type: String
+          value: "PathAlign"
+        "FollowPathDWB.PathAlign.forward_point_distance":
+          type: Double
+          value: 0.325
+        "FollowPathDWB.PathAlign.scale":
+          type: Double
+          value: 1.0
+        "FollowPathDWB.PathDist.aggregation_type":
+          type: String
+          value: "last"
+        "FollowPathDWB.PathDist.class":
+          type: String
+          value: "PathDist"
+        "FollowPathDWB.PathDist.scale":
+          type: Double
+          value: 1.0
+        "FollowPathDWB.RotateToGoal.class":
+          type: String
+          value: "RotateToGoal"
+        "FollowPathDWB.RotateToGoal.lookahead_time":
+          type: Double
+          value: -1.0
+        "FollowPathDWB.RotateToGoal.scale":
+          type: Double
+          value: 1.0
+        "FollowPathDWB.RotateToGoal.slowing_factor":
+          type: Double
+          value: 5.0
+        "FollowPathDWB.acc_lim_theta":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.acc_lim_x":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.acc_lim_y":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.angular_granularity":
+          type: Double
+          value: 0.025
+        "FollowPathMPPI.critics":
+          type: Array [String]
+          value: ['RotateToGoal', 'Oscillation', 'BaseObstacle', 'GoalAlign', 'PathAlign', 'PathDist', 'GoalDist']
+        "FollowPathMPPI.ConstraintCritic.enabled":
           type: Boolean
-          value: False
-        "FollowPath.TrajectoryVisualizer.trajectory_steps":
+          value: true
+        "FollowPathMPPI.ConstraintCritic.cost_power":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.ConstraintCritic.cost_weight":
+          type: Double
+          value: 4.0
+        "FollowPathMPPI.GoalCritic.enabled":
+          type: Boolean
+          value: true
+        "FollowPathMPPI.GoalCritic.cost_power":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.GoalCritic.cost_weight":
+          type: Double
+          value: 5.0
+        "FollowPathMPPI.GoalCritic.threshold_to_consider":
+          type: Double
+          value: 1.4 
+        "FollowPathMPPI.GoalAngleCritic.enabled":
+          type: Boolean
+          value: true
+        "FollowPathMPPI.GoalAngleCritic.cost_power":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.GoalAngleCritic.cost_weight":
+          type: Double
+          value: 3.0
+        "FollowPathMPPI.GoalAngleCritic.threshold_to_consider":
+          type: Double
+          value: 0.5     
+        "FollowPathMPPI.PreferForwardCritic.enabled":
+          type: Boolean
+          value: true
+        "FollowPathMPPI.PreferForwardCritic.cost_power":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.PreferForwardCritic.cost_weight":
+          type: Double
+          value: 5.0
+        "FollowPathMPPI.PreferForwardCritic.threshold_to_consider":
+          type: Double
+          value: 0.5           
+        "FollowPathMPPI.CostCritic.enabled":
+          type: Boolean
+          value: true
+        "FollowPathMPPI.CostCritic.cost_power":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.CostCritic.cost_weight":
+          type: Double
+          value: 3.81
+        "FollowPathMPPI.CostCritic.critical_cost":
+          type: Double
+          value: 300.0
+        "FollowPathMPPI.CostCritic.consider_footprint":
+          type: Boolean
+          value: true     
+        "FollowPathMPPI.CostCritic.collision_cost":
+          type: Double
+          value: 1000000.0     
+        "FollowPathMPPI.CostCritic.near_goal_distance":
+          type: Double
+          value: 1.0                                         
+        "FollowPathMPPI.PathAlignCritic.enabled":
+          type: Boolean
+          value: true
+        "FollowPathMPPI.PathAlignCritic.cost_power":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.PathAlignCritic.cost_weight":
+          type: Double
+          value: 10.0
+        "FollowPathMPPI.PathAlignCritic.threshold_to_consider":
+          type: Double
+          value: 0.5
+        "FollowPathMPPI.PathAlignCritic.max_path_occupancy_ratio":
+          type: Double
+          value: 0.05    
+        "FollowPathMPPI.PathAlignCritic.trajectory_point_step":
+          type: Integer
+          value: 4
+        "FollowPathMPPI.PathAlignCritic.offset_from_furthest":
+          type: Integer
+          value: 20        
+        "FollowPathMPPI.PathAlignCritic.use_path_orientations":
+          type: Boolean
+          value: false    
+        "FollowPathMPPI.PathFollowCritic.enabled":
+          type: Boolean
+          value: true
+        "FollowPathMPPI.PathFollowCritic.cost_power":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.PathFollowCritic.cost_weight":
+          type: Double
+          value: 5.0
+        "FollowPathMPPI.PathFollowCritic.threshold_to_consider":
+          type: Double
+          value: 1.4       
+        "FollowPathMPPI.PathAngleCritic.enabled":
+          type: Boolean
+          value: true
+        "FollowPathMPPI.PathAngleCritic.cost_power":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.PathAngleCritic.cost_weight":
+          type: Double
+          value: 2.0
+        "FollowPathMPPI.PathAngleCritic.threshold_to_consider":
+          type: Double
+          value: 0.5   
+        "FollowPathMPPI.PathAngleCritic.max_angle_to_furthest":
+          type: Double
+          value: 1.0
+        "FollowPathDWB.debug_trajectory_details":
+          type: Boolean
+          value: true
+        "FollowPathDWB.decel_lim_theta":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.decel_lim_x":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.decel_lim_y":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.default_critic_namespaces":
+          type: Array[String]  
+        "FollowPathDWB.critics":
+          type: Array[String]
+        "FollowPathDWB.discretize_by_time":
+          type: Boolean
+          value: false
+        "FollowPathDWB.forward_prune_distance":
+          type: Double
+          value: 2.0
+        "FollowPathDWB.include_last_point":
+          type: Boolean
+          value: true
+        "FollowPathDWB.linear_granularity":
+          type: Double
+          value: 0.05
+        "FollowPathDWB.marker_lifetime":
+          type: Double
+          value: 0.1
+        "FollowPathDWB.max_speed_xy":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.max_vel_theta":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.max_vel_x":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.max_vel_y":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.min_speed_theta":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.min_speed_xy":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.min_vel_x":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.min_vel_y":
+          type: Double
+          value: 0.0
+        "FollowPathDWB.plugin":
+          type: String
+          value: "dwb_core::DWBLocalPlanner"
+        "FollowPathDWB.prune_distance":
+          type: Double
+          value: 2.0
+        "FollowPathDWB.prune_plan":
+          type: Boolean
+          value: true
+        "FollowPathDWB.publish_cost_grid_pc":
+          type: Boolean
+          value: false
+        "FollowPathDWB.publish_evaluation":
+          type: Boolean
+          value: true
+        "FollowPathDWB.publish_global_plan":
+          type: Boolean
+          value: true
+        "FollowPathDWB.publish_local_plan":
+          type: Boolean
+          value: true
+        "FollowPathDWB.publish_trajectories":
+          type: Boolean
+          value: true
+        "FollowPathDWB.publish_transformed_plan":
+          type: Boolean
+          value: true
+        "FollowPathDWB.short_circuit_trajectory_evaluation":
+          type: Boolean
+          value: true
+        "FollowPathDWB.shorten_transformed_plan":
+          type: Boolean
+          value: true
+        "FollowPathDWB.sim_time":
+          type: Double
+          value: 1.7
+        "FollowPathDWB.time_granularity":
+          type: Double
+          value: 0.5
+        "FollowPathDWB.trajectory_generator_name":
+          type: String
+          value: "dwb_plugins::StandardTrajectoryGenerator"
+        "FollowPathDWB.trans_stopped_velocity":
+          type: Double
+          value: 0.25
+        "FollowPathDWB.transform_tolerance":
+          type: Double
+          value: 0.2
+        "FollowPathDWB.vtheta_samples":
+          type: Integer
+          value: 20
+        "FollowPathDWB.vx_samples":
+          type: Integer
+          value: 20
+        "FollowPathDWB.vy_samples":
           type: Integer
           value: 5
-        "FollowPath.TrajectoryVisualizer.time_step":
+        "FollowPathDWB.xy_goal_tolerance":
+          type: Double
+          value: 0.25
+        "FollowPathMPPI.motion_model":
+          type: String
+          value: "DiffDrive"
+        "FollowPathMPPI.critics":
+          type: Array [String]
+        "FollowPathMPPI.iteration_count":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.batch_size":
+          type: Integer
+          value: 1000
+        "FollowPathMPPI.time_steps":
+          type: Integer
+          value: 56
+        "FollowPathMPPI.model_dt":
+          type: Double
+          value: 0.05  
+        "FollowPathMPPI.vx_std":
+          type: Double
+          value: 0.2
+        "FollowPathMPPI.vy_std":
+          type: Double
+          value: 0.2
+        "FollowPathMPPI.wz_std":
+          type: Double
+          value: 0.4
+        "FollowPathMPPI.vx_max":
+          type: Double
+          value: 0.5
+        "FollowPathMPPI.vy_max":
+          type: Double
+          value: 0.5
+        "FollowPathMPPI.vx_min":
+          type: Double
+          value: -0.35
+        "FollowPathMPPI.wz_max":
+          type: Double
+          value: 1.9
+        "FollowPathMPPI.temperature":
+          type: Double
+          value: 0.3
+        "FollowPathMPPI.gamma":
+          type: Double
+          value: 0.015
+        "FollowPathMPPI.visualize":
+          type: Boolean
+          value: false
+        "FollowPathMPPI.retry_attempt_limit":
+          type: Integer
+          value: 1
+        "FollowPathMPPI.reset_period":
+          type: Double
+          value: 1.0
+        "FollowPathMPPI.regenerate_noises":
+          type: Boolean
+          value: false
+        "FollowPathMPPI.TrajectoryVisualizer.trajectory_step":
+          type: Integer
+          value: 5
+        "FollowPathMPPI.TrajectoryVisualizer.time_step":
           type: Integer
           value: 3
         "controller_frequency":
@@ -451,7 +442,7 @@ nav2_controller:
           value: 10.0
         "controller_plugins":
           type: Array [String]
-          value: "['FollowPath']"
+          value: ['FollowPathDWB', 'FollowPathMPPI']
         "failure_tolerance":
           type: Double
           value: 0.3
@@ -460,7 +451,7 @@ nav2_controller:
           value: "nav2_controller::SimpleGoalChecker"
         "general_goal_checker.stateful":
           type: Boolean
-          value: True
+          value: true
         "general_goal_checker.xy_goal_tolerance":
           type: Double
           value: 0.25
@@ -469,7 +460,7 @@ nav2_controller:
           value: 0.25
         "goal_checker_plugins":
           type: Array [String]
-          value: "['general_goal_checker']"
+          value: ['general_goal_checker']
         "min_theta_velocity_threshold":
           type: Double
           value: 0.001
@@ -499,4 +490,4 @@ nav2_controller:
           value: "speed_limit"
         "use_sim_time":
           type: Boolean
-          value: False
+          value: false

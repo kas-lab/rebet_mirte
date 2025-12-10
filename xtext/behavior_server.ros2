@@ -35,15 +35,15 @@ nav2_behaviors:
         "wait":
           type: "nav2_msgs/action/Wait"
       parameters:
-        "bond_disable_heartbeat_timeout":
+        "/bond_disable_heartbeat_timeout":
           type: Boolean
-          value: True
+          value: true
         "backup.plugin":
           type: String
           value: "nav2_behaviors/BackUp"
         "behavior_plugins":
-          type: Array [String]
-          value: "['spin', 'backup', 'drive_on_heading', 'wait']"
+          type: Array[String]
+          value: ['spin', 'backup', 'drive_on_heading', 'wait']
         "costmap_topic":
           type: String
           value: "local_costmap/costmap_raw"
@@ -82,7 +82,12 @@ nav2_behaviors:
           value: 0.1
         "use_sim_time":
           type: Boolean
-          value: False
+          value: false
         "wait.plugin":
           type: String
           value: "nav2_behaviors/Wait"
+        "assisted_teleop.plugin":
+          type: String
+          value: "nav2_behaviors/AssistedTeleop"
+        
+        

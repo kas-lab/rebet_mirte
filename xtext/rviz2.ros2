@@ -65,4 +65,4 @@ rviz2:
           value: 10000
         "use_sim_time":
           type: Boolean
-          value: False
+          value: false

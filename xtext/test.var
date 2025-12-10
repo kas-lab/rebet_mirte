@@ -1,0 +1,12 @@
+feature_model {
+	name test
+	root  
+		selected Feature TEST_ROOT_FEATURE {id VELOCITY_SMOOTHER children { mandatory selected Alternative MANDATORY_ALTERNATIVE { id MANDATORY_ALT children 
+			{ selected Feature CHILD_ONE { id CHILD_ONE }, 
+			  Feature CHILD_TWO { id CHILD_TWO },
+			  Feature CHILD_THREE { id CHILD_THREE }
+			}
+		}
+		}
+		}
+	crossTreeConstraints}

@@ -51,6 +51,10 @@ add_library(navigate_to_pose_plugin SHARED src/navigatetopose_action.cpp)
 target_compile_definitions(navigate_to_pose_plugin PRIVATE  BT_PLUGIN_EXPORT)
 ament_target_dependencies(navigate_to_pose_plugin ${THIS_PACKAGE_DEPS})
 
+add_library(detect_plugin SHARED src/detect_service.cpp)
+target_compile_definitions(detect_plugin PRIVATE  BT_PLUGIN_EXPORT)
+ament_target_dependencies(detect_plugin ${THIS_PACKAGE_DEPS})
+
 # Install Cpp executables
 install(TARGETS
   mirte_arborist
@@ -65,16 +69,19 @@ install(PROGRAMS
   scripts/system_reflection.py
   scripts/tree_action_client.py
   scripts/context_model.py
+  scripts/yolo_as_a_service.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
 install(TARGETS
   navigate_to_pose_plugin
+  detect_plugin
   DESTINATION lib/${PROJECT_NAME}
 )
 
 install(TARGETS
   navigate_to_pose_plugin
+  detect_plugin
   LIBRARY DESTINATION share/${PROJECT_NAME}/bt_plugins
   ARCHIVE DESTINATION share/${PROJECT_NAME}/bt_plugins
   RUNTIME DESTINATION share/${PROJECT_NAME}/bt_plugins

@@ -1,0 +1,64 @@
+
+FROM ros2-java-jazzy-source
+
+# Set environment variables for non-interactive installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update and install additional dependencies if needed
+RUN apt-get update && apt-get install -y \
+    openssh-client \
+    git \
+    curl \
+    # ros-humble-gazebo-ros-pkgs \
+    # python3-vcstool \
+    # python3-rosdep \
+    # ignition-fortress \
+    # vim \
+    # nano \
+    # openjdk-21-jdk \
+    # ros-dev-tools \
+    # python3-colcon-common-extensions \
+    # wget \
+    # unzip \
+    # zip \
+    # python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install masced_bandits
+
+RUN curl -s https://raw.githubusercontent.com/kas-lab/ros_typedb/92f740630ff4ba2efaab00d5ede0640b659b5600/.github/workflows/install_typedb.sh | bash
+
+ 
+ENV REBET_TERMINAL_PREFIX=""
+# Create workspace directories
+RUN mkdir -p /rebetmc_ws/src
+
+# Copy dependencies.repos into the container
+COPY rebetmirte.rosinstall /rebetmc_ws/
+
+WORKDIR /rebetmc_ws
+
+
+RUN mkdir -p /root/.ssh && ssh-keyscan github.com >> /root/.ssh/known_hosts
+
+# Use vcs to import and clone all packages
+RUN --mount=type=ssh vcs import /rebetmc_ws/src < /rebetmc_ws/rebetmirte.rosinstall
+RUN touch /rebetmc_ws/src/mirte-ros-packages/mirte_telemetrix_cpp/COLCON_IGNORE
+
+RUN ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash \
+    && apt update \
+    && rosdep update \
+    && rosdep install --from-paths src --ignore-src -r -y \
+    && sudo rm -rf /var/lib/apt/lists/"]
+
+
+
+RUN /bin/bash -c "source /root/ros2_jazzy/install/local_setup.bash && \
+    colcon build --symlink-install"
+    
+RUN cd /rebetmc_ws/src/rebet_java && gradle copyDependencies
+
+# RUN rm -rf /var/lib/apt/lists/*
+
+# Set the default entrypoint
+ENTRYPOINT ["/bin/bash"]

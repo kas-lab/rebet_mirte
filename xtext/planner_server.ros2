@@ -28,3 +28,76 @@ nav2_planner:
           type: "nav2_msgs/action/ComputePathThroughPoses"
         "compute_path_to_pose":
           type: "nav2_msgs/action/ComputePathToPose"
+      parameters:
+        '/bond_disable_heartbeat_timeout':
+          type: Boolean
+          value: true
+        'use_sim_time':
+          type: Boolean
+          value: false
+        'expected_planner_frequency':
+          type: Double
+          value: 20.0
+        'planner_plugins':
+          type: Array[String]
+          value: ['GridBased']
+        'GridBased.allow_unknown':
+          type: Boolean
+          value: true
+        'GridBased.plugin':
+          type: String
+          value: "nav2_navfn_planner/NavfnPlanner"
+        'GridBased.tolerance':
+          type: Double
+          value: 0.5
+        'GridBased.use_astar':
+          type: Boolean
+          value: false
+        'GridBased.use_final_approach_orientation':
+          type: Boolean
+          value: false
+        'SMAC.allow_unknown':
+          type: Boolean
+          value: true
+        'SMAC.cost_travel_multiplier':
+          type: Double
+          value: 2.0
+        'SMAC.downsample_costmap':
+          type: Boolean
+          value: false
+        'SMAC.downsampling_factor':
+          type: Integer
+          value: 1
+        'SMAC.max_iterations':
+          type: Integer
+          value: 1000000
+        'SMAC.max_on_approach_iterations':
+          type: Integer
+          value: 1000
+        'SMAC.max_planning_time':
+          type: Double
+          value: 2.0
+        'SMAC.plugin':
+          type: String
+          value: "nav2_smac_planner/SmacPlanner2D"
+        'SMAC.smoother.do_refinement':
+          type: Boolean
+          value: true
+        'SMAC.smoother.max_iterations':
+          type: Integer
+          value: 1000
+        'SMAC.smoother.tolerance':
+          type: Double
+          value: 1e-10
+        'SMAC.smoother.w_data':
+          type: Double
+          value: 0.2
+        'SMAC.smoother.w_smooth':
+          type: Double
+          value: 0.3
+        'SMAC.tolerance':
+          type: Double
+          value: 0.125
+        'SMAC.use_final_approach_orientation':
+          type: Boolean
+          value: false      

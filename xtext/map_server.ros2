@@ -26,9 +26,9 @@ nav2_map_server:
         "~/map":
           type: "nav_msgs/srv/GetMap"
       parameters:
-        "bond_disable_heartbeat_timeout":
+        "/bond_disable_heartbeat_timeout":
           type: Boolean
-          value: True
+          value: true
         "frame_id":
           type: String
           value: "map"
@@ -37,7 +37,7 @@ nav2_map_server:
           value: "map"
         "use_sim_time":
           type: Boolean
-          value: False
+          value: false
         "yaml_filename":
           type: String
-          value: "/home/nhg/ros2_wss/turtlebot_ws/install/turtlebot3_navigation2/share/turtlebot3_navigation2/map/map.yaml"
+          value: ""

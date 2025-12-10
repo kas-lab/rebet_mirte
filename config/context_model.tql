@@ -1,0 +1,65 @@
+define
+
+measure_name sub attribute,
+	value string;
+description sub attribute,
+    value string;
+
+measurement_time sub attribute,
+    value datetime;
+
+latest sub attribute,
+    value boolean;
+
+Measure sub entity,
+    owns measure_name @key,
+    owns description,
+    plays measurement:measure,
+    plays measurement_interface:measure;
+
+MeasureBool sub Measure;
+MeasureInteger sub Measure;
+MeasureDouble sub Measure;
+MeasureString sub Measure;
+
+MeasureBoolArray sub Measure;
+MeasureIntegerArray sub Measure;
+MeasureStringArray sub Measure;
+MeasureDoubleArray sub Measure;
+
+measurement sub relation,
+    owns measurement_time,
+    owns latest,
+    relates measure,
+    relates measurement_value;
+
+### connection with data structure model
+Value plays measurement:measurement_value;
+
+measurement_function_name sub attribute,
+    value string;
+measurement_function_lib sub attribute,
+    value string;
+measurement_function_args sub attribute,
+    value string;
+
+measurement_interface sub relation,
+    owns measurement_function_name,
+    owns measurement_function_lib,
+    owns measurement_function_args,
+    relates measure,
+    relates source,
+    relates output;
+
+rule measurement_latest:
+    when {
+        $measurement (measure: $measure, measurement_value: $mv) isa measurement,
+            has measurement_time $time;
+        not {
+            (measure: $measure, measurement_value: $nmv) isa measurement,
+                has measurement_time $time2;
+            $time2 > $time;
+        };
+    } then {
+        $measurement has latest true;
+    };

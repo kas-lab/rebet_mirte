@@ -4,26 +4,28 @@ define
 feature_name sub attribute,
     value string;
 
-feature_selected sub attribute,
+selected sub attribute,
+    value boolean;
+selectable sub attribute,
     value boolean;
 
 leaf_feature sub attribute,
     value boolean;
 
-feature_mandatory sub attribute,
+mandatory sub attribute,
     value boolean;
 
 # Relations
 feature_hierarchy sub relation,
     relates parent,
     relates child;
-    
-alternative sub feature_hierarchy;
+
+alternative sub feature_hierarchy; # exclusive or (XOR)
 or_group sub feature_hierarchy;
 
 cross_tree_constraint sub relation,
-    relates feature,
-    relates dependency;
+    relates constraint,
+    relates constrained;
 
 excludes_constraint sub cross_tree_constraint;
 requires_constraint sub cross_tree_constraint;
@@ -31,15 +33,16 @@ requires_constraint sub cross_tree_constraint;
 # Entities
 Feature sub entity,
     owns feature_name @key,
-    owns feature_selected,
-    owns feature_mandatory,
+    owns selected,
+    owns selectable,
+    owns mandatory,
     owns leaf_feature,
-    plays tactic_rule:consequent,
-    plays variant_resolution:variant,
     plays feature_hierarchy:parent,
     plays feature_hierarchy:child,
-    plays cross_tree_constraint:feature;
-    
+    plays cross_tree_constraint:constraint,
+    plays cross_tree_constraint:constrained;
+
+
 # Rules
 rule leaf_feature:
     when {
@@ -50,3 +53,39 @@ rule leaf_feature:
     } then {
         $f has leaf_feature true;
     };
+
+rule feature_selectable:
+    when {
+        $f isa Feature;
+        not {$f has selectable false;};
+    } then {
+        $f has selectable true;
+    };
+
+## Rules for evaluating the constraints
+rule constraint_requires_invalid:
+    when {
+        (constraint: $f_constraint, constrained: $f) isa requires_constraint;
+        not { $f_constraint has selected true;};
+    } then {
+        $f has selectable false;
+    };
+
+rule constraint_excludes_invalid:
+    when {
+        (constraint: $f_constraint, constrained: $f) isa excludes_constraint;
+        $f_constraint has selected true;
+    } then {
+        $f has selectable false;
+    };
+
+rule alternative_selected:
+    when {
+        (parent: $f_parent, child: $f_child) isa alternative;
+        $f_child has selected true;
+        (parent: $f_parent, child: $f_child_2) isa alternative;
+        not {$f_child is $f_child_2;};
+    } then {
+        $f_child_2 has selectable false;
+    };
+

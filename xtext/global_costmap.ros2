@@ -46,21 +46,21 @@ global_costmap:
           type: "lifecycle_msgs/srv/GetAvailableTransitions"
 
       parameters:
-        "bond_disable_heartbeat_timeout":
+        "/bond_disable_heartbeat_timeout":
           type: Boolean
-          value: True
+          value: true
         "always_send_full_costmap":
           type: Boolean
-          value: True
+          value: true
         "clearable_layers":
           type: Array [String]
-          value: "['obstacle_layer', 'voxel_layer', 'range_layer']"
+          value: ['obstacle_layer', 'voxel_layer', 'range_layer']
         "filters":
           type: Array [String]
-          value: "[]"
+          value: ['']
         "footprint":
           type: String
-          value: "[]"
+          value: ['']
         "footprint_padding":
           type: Double
           value: 0.009999999776482582
@@ -75,13 +75,13 @@ global_costmap:
           value: 3.0
         "inflation_layer.enabled":
           type: Boolean
-          value: True
+          value: true
         "inflation_layer.inflate_around_unknown":
           type: Boolean
-          value: False
+          value: false
         "inflation_layer.inflate_unknown":
           type: Boolean
-          value: False
+          value: false
         "inflation_layer.inflation_radius":
           type: Double
           value: 0.55
@@ -102,10 +102,10 @@ global_costmap:
           value: 1
         "obstacle_layer.enabled":
           type: Boolean
-          value: True
+          value: true
         "obstacle_layer.footprint_clearing_enabled":
           type: Boolean
-          value: True
+          value: true
         "obstacle_layer.max_obstacle_height":
           type: Double
           value: 2.0
@@ -120,7 +120,7 @@ global_costmap:
           value: "nav2_costmap_2d::ObstacleLayer"
         "obstacle_layer.scan.clearing":
           type: Boolean
-          value: True
+          value: true
         "obstacle_layer.scan.data_type":
           type: String
           value: "LaserScan"
@@ -129,10 +129,10 @@ global_costmap:
           value: 0.0
         "obstacle_layer.scan.inf_is_valid":
           type: Boolean
-          value: False
+          value: false
         "obstacle_layer.scan.marking":
           type: Boolean
-          value: True
+          value: true
         "obstacle_layer.scan.max_obstacle_height":
           type: Double
           value: 2.0
@@ -168,7 +168,7 @@ global_costmap:
           value: 0.0
         "plugins":
           type: Array [String]
-          value: "['static_layer', 'obstacle_layer', 'voxel_layer', 'inflation_layer']"
+          value: ['static_layer', 'obstacle_layer', 'voxel_layer', 'inflation_layer']
         "publish_frequency":
           type: Double
           value: 1.0
@@ -183,13 +183,13 @@ global_costmap:
           value: 0.22
         "rolling_window":
           type: Boolean
-          value: False
+          value: false
         "static_layer.enabled":
           type: Boolean
-          value: True
+          value: true
         "static_layer.map_subscribe_transient_local":
           type: Boolean
-          value: True
+          value: true
         "static_layer.map_topic":
           type: String
           value: ""
@@ -198,19 +198,19 @@ global_costmap:
           value: "nav2_costmap_2d::StaticLayer"
         "static_layer.subscribe_to_updates":
           type: Boolean
-          value: False
+          value: false
         "static_layer.transform_tolerance":
           type: Double
           value: 0.0
         "track_unknown_space":
           type: Boolean
-          value: True
+          value: true
         "transform_tolerance":
           type: Double
           value: 0.3
         "trinary_costmap":
           type: Boolean
-          value: True
+          value: true
         "unknown_cost_value":
           type: Integer
           value: 255
@@ -219,19 +219,19 @@ global_costmap:
           value: 1.0
         "use_maximum":
           type: Boolean
-          value: False
+          value: false
         "use_sim_time":
           type: Boolean
-          value: False
+          value: false
         "voxel_layer.combination_method":
           type: Integer
           value: 1
         "voxel_layer.enabled":
           type: Boolean
-          value: True
+          value: true
         "voxel_layer.footprint_clearing_enabled":
           type: Boolean
-          value: True
+          value: true
         "voxel_layer.mark_threshold":
           type: Integer
           value: 0
@@ -252,10 +252,10 @@ global_costmap:
           value: "nav2_costmap_2d::VoxelLayer"
         "voxel_layer.publish_voxel_map":
           type: Boolean
-          value: True
+          value: true
         "voxel_layer.scan.clearing":
           type: Boolean
-          value: True
+          value: true
         "voxel_layer.scan.data_type":
           type: String
           value: "LaserScan"
@@ -264,10 +264,10 @@ global_costmap:
           value: 0.0
         "voxel_layer.scan.inf_is_valid":
           type: Boolean
-          value: False
+          value: false
         "voxel_layer.scan.marking":
           type: Boolean
-          value: True
+          value: true
         "voxel_layer.scan.max_obstacle_height":
           type: Double
           value: 2.0

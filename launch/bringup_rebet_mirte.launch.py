@@ -13,16 +13,26 @@ from nav2_common.launch import ReplaceString
 
 
 def generate_launch_description():
+    launch_config_arg = DeclareLaunchArgument(
+        "config", default_value="dev", description="Which config to use: 'dev' or 'frog'"
+    )
     # launch_yolo_arg = DeclareLaunchArgument(
     #     "yolo", default_value="true", description="Also launch the yolo node or not"
     # )
 
     launch_files = os.path.join(get_package_share_directory("rebet_mirte"), "launch")
     config_files = os.path.join(get_package_share_directory("rebet_mirte"), "config")
+    schema_files = os.path.join(get_package_share_directory("typedb_tactics"), "schemas")
 
-    config_file = os.path.join(
+
+    dev_config_file = os.path.join(
         config_files,
-        'adaptation_engine_config.yaml'
+        'adaptation_engine_config_dev.yaml'
+    )
+
+    frog_config_file = os.path.join(
+        config_files,
+        'adaptation_engine_config_frog.yaml'
     )
 
     aal = Node(
@@ -40,31 +50,29 @@ def generate_launch_description():
 
     typedb = IncludeLaunchDescription(
         AnyLaunchDescriptionSource(
-            os.path.join(get_package_share_directory("ros_typedb"), "launch",
-                         "ros_typedb.launch.py")
+            os.path.join(get_package_share_directory("typedb_tactics"), "launch",
+                         "tactical_retreat_kb.launch.py")
         ),
         launch_arguments={
-            "schema_path": f"[{os.path.join(config_files, 'schema_tactics_resolution.tql')},{os.path.join(config_files, 'feature_model.tql')}]",
-            "data_path": f"[{os.path.join(config_files, 'insert_measurement.tql')}]",
+            "schema_path": f"[{os.path.join(schema_files, 'data_structure', 'data_structure.tql')}, \
+                              {os.path.join(schema_files, 'context_model', 'context_model.tql')}, \
+                              {os.path.join(schema_files, 'ros_model', 'ros_model.tql')}, \
+                              {os.path.join(schema_files, 'logical_expressions', 'logical_expression.tql')}, \
+                              {os.path.join(schema_files, 'feature_model', 'feature_model.tql')}, \
+                              {os.path.join(schema_files, 'feature_model', 'feature_model_logical_expression.tql')}, \
+                              {os.path.join(schema_files, 'tactics_model', 'tactics_model.tql')}, \
+                              {os.path.join(schema_files, 'discover_tactics_model', 'discover_tactics_model.tql')}, \
+                              {os.path.join(schema_files, 'relaxed', 'relaxed_model.tql')}]",
+            # "data_path": f"[{os.path.join(config_files, 'insert_measurement.tql')}]",
             "force_database": "True",
             "force_data": "True",
         }.items(),
     )
 
-    x = GroupAction(
-                actions = [
-                    Node(
-                        package="rebet_java",
-                        executable="adaptation_engine",
-                        output="screen",),
-                    SetParameter(name='ros2_path', value='not_empty'),             
-                ]
-    )
-
     xtext_dir = config_files = os.path.join(get_package_share_directory("rebet_mirte"), "xtext")
 
-    config_file = ReplaceString(
-        source_file=config_file,
+    dev_config_file = ReplaceString(
+        source_file=dev_config_file,
         replacements={
             "<rebet_mirte_xtext_dir>": (
                 xtext_dir
@@ -72,26 +80,38 @@ def generate_launch_description():
         },
     )
 
-    adap_engine = Node(
+    frog_config_file = ReplaceString(
+        source_file=frog_config_file,
+        replacements={
+            "<rebet_mirte_xtext_dir>": (
+                xtext_dir
+            )
+        },
+    )
+
+    frog_adap_engine = Node(
         package="rebet_java",
         executable="adaptation_engine",
         output="screen",
-        parameters=[config_file]
+        parameters=[frog_config_file],
+        condition=LaunchConfigurationEquals("config", "frog"),
+    )
+
+    dev_adap_engine = Node(
+        package="rebet_java",
+        executable="adaptation_engine",
+        output="screen",
+        parameters=[dev_config_file],
+        condition=LaunchConfigurationEquals("config", "dev"),
     )
 
     delay_adap_engine = TimerAction(
         period=2.0,  # Delay for 5 seconds
-        actions=[adap_engine],
-    )
-
-    context_model = Node(
-        package="rebet_mirte",
-        executable="context_model.py",
-        prefix=EnvironmentVariable('REBET_TERMINAL_PREFIX'),
-        output="screen",
+        actions=[frog_adap_engine, dev_adap_engine],
     )
 
     return LaunchDescription(
-        [delay_adap_engine]
-        #[typedb, delay_adap_engine, aal, context_model] #, arborist, ]
+        [launch_config_arg, typedb, delay_adap_engine, aal]
+        # [typedb, delay_adap_engine, aal, context_model]
+        # [typedb, delay_adap_engine, aal, context_model] #, arborist, ]
     )
