@@ -1,0 +1,45 @@
+repositories:
+  behaviortree_ros2:
+    type: git
+    url: https://github.com/BehaviorTree/BehaviorTree.ROS2.git
+    version: cc31ea7
+  behaviortree_cpp:
+    type: git
+    url: https://github.com/EGAlberts/BehaviorTree.CPP.git
+    version: 4.6.3
+  aal:
+    type: git
+    url: https://github.com/EGAlberts/AAL-ROS2.git
+    version: 0464bfc
+  rebet:
+    type: git
+    url: https://github.com/EGAlberts/ReBeT.git
+    version: mc
+  rebet_java:
+    type: git
+    url: https://github.com/EGAlberts/rebet_java.git
+    version: arch_monitoring
+  rebet_mirte:
+    type: git
+    url: https://github.com/EGAlberts/rebet_mirte.git
+    version: jazzy
+  mirte-ros-packages:
+    type: git
+    url: https://github.com/EGAlberts/mirte-ros-packages.git
+    version: fortress
+  mirte_navigation:
+    type: git
+    url: https://github.com/kas-lab/mirte_navigation.git
+    version: fortress
+  ros_typedb:
+    type: git
+    url: https://github.com/kas-lab/ros_typedb.git
+    version: main
+  typedb_tactics:
+    type: git
+    url: git@github.com:kas-lab/typedb_tactics.git
+    version: elvin_mess
+  navigation2:
+    type: git
+    url: https://github.com/ros-navigation/navigation2.git
+    version: 1.3.10
