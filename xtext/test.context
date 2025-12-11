@@ -1,0 +1,14 @@
+import "rebetmirte.rossystem";
+ContextVariable current_velocity
+{
+source: publisher: ref: ros_gz_bridge.mirte_base_controller_slash_odom
+cache? false
+function_name "calc_linear_velocity"
+function_lib "ros_monitors_functions.odom_functions"
+}
+ContextVariable movement_power
+{
+	source: publisher: ref: ros_gz_bridge.mirte_base_controller_slash_odom
+	cache? false
+	function_name ""
+}

@@ -2,6 +2,9 @@ localization_launch:
   nodes:
     map_server:
       from: "nav2_map_server.map_server"
+      parameters:
+        - yaml_filename: "map_server::yaml_filename"
+          value: "/home/ega/rebetmc_ws/install/mirte_navigation/share/mirte_navigation/maps/map.yaml" 
     amcl:
       from: "nav2_amcl.amcl"
     lifecycle_manager_localization:

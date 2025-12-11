@@ -25,6 +25,7 @@
   <depend>aal_msgs</depend>
   <depend>aal</depend>  
   <depend>rebet</depend>
+  <depend>nav2_msgs</depend>
 
 
   

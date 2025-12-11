@@ -1,9 +1,10 @@
 /adaptation_engine:
   ros__parameters:
-    tactics_path: "<rebet_mirte_xtext_dir>/test3.tactics"
+    tactics_path: "<rebet_mirte_xtext_dir>/frog.tactics"
     resolution_path: "<rebet_mirte_xtext_dir>/rebetmc.resolution"
     ros_path:
       - "<rebet_mirte_xtext_dir>/builtin_interfaces.ros"
+      - "<rebet_mirte_xtext_dir>/rcl_interfaces.ros"
       - "<rebet_mirte_xtext_dir>/ros_core.ros"
       - "<rebet_mirte_xtext_dir>/common_msgs.ros"
       - "<rebet_mirte_xtext_dir>/lifecycle_msgs.ros"
@@ -13,6 +14,8 @@
       - "<rebet_mirte_xtext_dir>/nav_2d_msgs.ros"
       - "<rebet_mirte_xtext_dir>/dwb_msgs.ros"
       - "<rebet_mirte_xtext_dir>/rosgraph_msgs.ros"
+      - "<rebet_mirte_xtext_dir>/rebet_msgs.ros"
+
     ros2_path:
       - "<rebet_mirte_xtext_dir>/velocity_smoother.ros2"
       - "<rebet_mirte_xtext_dir>/amcl.ros2"
@@ -31,9 +34,16 @@
       - "<rebet_mirte_xtext_dir>/waypoint_follower.ros2"
       - "<rebet_mirte_xtext_dir>/bt_navigator_navigate_to_pose_rclcpp_node.ros2"
       - "<rebet_mirte_xtext_dir>/bt_navigator_navigate_through_poses_rclcpp_node.ros2"
+      - "<rebet_mirte_xtext_dir>/ros_gz_bridge.ros2"
+      - "<rebet_mirte_xtext_dir>/detect_object.ros2"
 
     rossystem_path:
       - "<rebet_mirte_xtext_dir>/navigation.rossystem"
       - "<rebet_mirte_xtext_dir>/localization.rossystem"
+      - "<rebet_mirte_xtext_dir>/gz.rossystem"
+      - "<rebet_mirte_xtext_dir>/yolo.rossystem"
       - "<rebet_mirte_xtext_dir>/rebetmirte.rossystem"
+      
     variability_path: "<rebet_mirte_xtext_dir>/partial_nav2.var"
+    context_path: "<rebet_mirte_xtext_dir>/frog.context"
+    requirements_path: "<rebet_mirte_xtext_dir>/frog.reqs"

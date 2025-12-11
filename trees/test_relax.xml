@@ -1,0 +1,12 @@
+
+<root BTCPP_format="4" main_tree_to_execute="RELAX">
+  	<BehaviorTree ID="RELAX">
+		<Repeat num_cycles="5">
+				<RelaxQR requirement="SHALL( AS CLOSE AS POSSIBLE TO( 0.26 current_velocity ))'">						
+					<Sequence>	
+						<Sleep msec="1000"/>
+					</Sequence>
+				</RelaxQR>
+		</Repeat>
+  </BehaviorTree>
+</root>

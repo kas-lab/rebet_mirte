@@ -1,0 +1,36 @@
+define
+
+Value sub entity,
+    abstract,
+    plays at_index:array_value;
+
+bool_value sub attribute,
+    value boolean;
+integer_value sub attribute,
+    value long;
+double_value sub attribute,
+    value double;
+string_value sub attribute,
+    value string;
+
+ValueSingleton sub Value;
+ValueBool sub ValueSingleton,
+    owns bool_value;
+ValueInteger sub ValueSingleton,
+    owns integer_value;
+ValueDouble sub ValueSingleton,
+    owns double_value;
+ValueString sub ValueSingleton,
+    owns string_value;
+
+ValueArray sub Value,
+    plays at_index:array;
+
+index sub attribute,
+    value long;
+at_index sub relation,
+    owns index,
+    relates array,
+    relates array_value;
+
+

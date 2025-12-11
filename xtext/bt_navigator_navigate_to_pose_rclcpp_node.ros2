@@ -1,6 +1,6 @@
 nav2_bt_navigator:
   artifacts:
-    bt_navigator_navigate_to_pose:
+    bt_navigator_navigate_to_pose_rclcpp_node:
       node: bt_navigator_navigate_to_pose_rclcpp_node
       publishers:
         'behavior_tree_log':
