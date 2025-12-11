@@ -22,15 +22,11 @@ repositories:
   rebet_mirte:
     type: git
     url: https://github.com/EGAlberts/rebet_mirte.git
-    version: 0e127f6
+    version: jazzy
   mirte-ros-packages:
     type: git
     url: https://github.com/EGAlberts/mirte-ros-packages.git
     version: fortress
-  mirte-gazebo:
-    type: git
-    url: https://github.com/EGAlberts/mirte-gazebo.git
-    version: docker
   mirte_navigation:
     type: git
     url: https://github.com/kas-lab/mirte_navigation.git
